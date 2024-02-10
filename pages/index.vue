@@ -5,7 +5,7 @@
 <template>
   <div>
 
-    <Corossal />
+    <CarouselBanner />
   </div>
 </template>
 
