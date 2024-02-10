@@ -5,7 +5,9 @@
 <template>
   <div>
     <CarouselBanner />
+    
   </div>
+
 </template>
 
   
