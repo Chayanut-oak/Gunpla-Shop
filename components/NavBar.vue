@@ -1,5 +1,5 @@
 <template>
-  <Disclosure as="nav" class="bg-gray-800" v-slot="{ open }">
+  <Disclosure as="nav" class="bg-gray-800 sticky top-0 z-[100]" v-slot="{ open }">
     <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -77,7 +77,7 @@
       </div>
     </DisclosurePanel>
   </Disclosure>
-  <TransitionRoot as="template" :show="openCart">
+  <TransitionRoot class="z-[101]" as="template" :show="openCart">
     <Dialog as="div" class="relative z-10" @close="openCart = false">
       <TransitionChild as="template" enter="ease-in-out duration-500" enter-from="opacity-0" enter-to="opacity-100"
         leave="ease-in-out duration-500" leave-from="opacity-100" leave-to="opacity-0">

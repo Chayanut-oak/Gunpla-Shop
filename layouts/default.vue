@@ -2,6 +2,6 @@
     <div>
         <NavBar />
         <slot />
-        <Product />
+        <!-- <Product /> -->
     </div>
 </template>
