@@ -1,8 +1,8 @@
 
 <template>
     <Carousel :settings="settings" :breakpoints="breakpoints">
-      <Slide v-for="image in images" :key="images" class="ransition duration-300 ease-in-out hover:scale-110">
-        <img class="h-100 w-auto object-cover" :src="image" alt="Product Image">
+      <Slide v-for="image in images" :key="images" class="transition duration-300 ease-in-out hover:scale-110 ">
+        <img class="aspect-['2/2'] w-[150px] h-[150px] object-contain mix-blend-color-burn" :src="image" alt="Product Image">
       </Slide>
   
       <template #addons>

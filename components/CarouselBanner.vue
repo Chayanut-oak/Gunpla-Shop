@@ -1,5 +1,5 @@
 <template>
-  <Carousel :autoplay="2000" :wrap-around="true">
+  <Carousel :autoplay="2000" :wrap-around="true" class="mt-10">
     <Slide class="carouselSlide" v-for="slide in slides" :key="slide">
       <img :src="slide" class="carousel__item" />
     </Slide>
@@ -22,8 +22,8 @@ const slides = ["https://cdn.discordapp.com/attachments/399896332187336704/12057
 
 <style>
 .carousel__item {
-  height: 35em;
-  width: 50%;
+  height: 30em;
+  width: 40%;
   background-color: gray;
   border-radius: 8px;
   display: flex;
