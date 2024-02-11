@@ -1,6 +1,6 @@
 <template>
   <Disclosure as="nav" class="bg-gray-800 sticky top-0 z-[100]" v-slot="{ open }">
-    <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+    <div class="mx-auto  px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
           <!-- Mobile menu button-->
@@ -15,8 +15,7 @@
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <NuxtLink to="/">
             <div class="flex flex-shrink-0 items-center">
-              <img class="h-10 w-auto" src="../assets/image/Logo.png"
-                alt="Gunpla Store Logo" />
+              <img class="h-10 w-auto" src="../assets/image/Logo.png" alt="Gunpla Store Logo" />
             </div>
           </NuxtLink>
           <div class="hidden sm:ml-6 sm:block">

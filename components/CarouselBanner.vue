@@ -23,7 +23,7 @@ const slides = ["https://cdn.discordapp.com/attachments/399896332187336704/12057
 <style>
 .carousel__item {
   height: 35em;
-  width: 70%;
+  width: 50%;
   background-color: gray;
   border-radius: 8px;
   display: flex;
