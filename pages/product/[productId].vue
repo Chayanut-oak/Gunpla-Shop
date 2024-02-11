@@ -47,7 +47,7 @@
                                         </div>
                                     </div>
                                     <div class="mt-10">
-                                        <h3 class="text-sm font-medium text-gray-900">รายละเอียดสินค้า</h3>
+                                        <h3 class="text-sm font-['kanit'] text-gray-900">รายละเอียดสินค้า</h3>
 
                                         <div class="mt-4">
                                             <ul v-if="product.type == 'Gunpla'" role="list"
