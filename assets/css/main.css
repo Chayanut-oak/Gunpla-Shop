@@ -14,4 +14,9 @@
             0 0 0.5rem #005894,
             inset 0 0 1.2rem #005894;
     }
+
+    .background-gold {
+        background-image: linear-gradient(#FFDEA8, #FEC84E);
+    }
+
 }

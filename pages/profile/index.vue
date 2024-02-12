@@ -6,7 +6,7 @@ definePageMeta({
 </script>
 <template>
   <div
-    class="bg-[url('https://t4.ftcdn.net/jpg/02/43/75/73/360_F_243757367_gBpS6R5c8DB7pL5gw9gi9KXlzFfbdZOA.jpg')] flex h-screen">
+    class="bg-[url('https://th.gundam.info/content/mgka/narrative/images/02about/bg.jpg')] flex h-screen">
     <div class="container mx-auto my-2 p-2 h-full w-full">
       <div class="md:flex no-wrap md:-mx-2 ">
         <!-- Left Side -->
@@ -15,7 +15,7 @@ definePageMeta({
           <div class="border-b-4 border-cyan-200 h-full ">
             <div class="bg-sky-950 pt-5 bg-opacity-75 text-cyan-300 border-cyan-300 border-solid border-2 h-full ">
               <div class="image overflow-hidden">
-                <img class="h-96 w- mx-auto  "
+                <img class="h-96 w-80 mx-auto object-contain "
                   src="https://preview.redd.it/mash-from-mashle-magic-and-muscles-v0-w0lnuo2dl07b1.jpg?width=640&crop=smart&auto=webp&s=d3be7b44c8909439f7c9df0553adeb5225dd5bc7"
                   alt="">
               </div>
@@ -37,7 +37,7 @@ definePageMeta({
         <!-- Profile tab -->
         <!-- About Section -->
         <div
-          class="bg-sky-500 border-cyan-300 border-solid border-2 bg-opacity-25 font-semibold ">
+          class="bg-sky-500 border-cyan-300 border-solid border-2 bg-opacity-40 font-semibold ">
           <div class="flex items-center profile-header text-cyan-300 border-cyan-300 border-solid border-b-2 bg-slate-900 font-semibold bg-opacity-85">
             <span clas="">
               <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">

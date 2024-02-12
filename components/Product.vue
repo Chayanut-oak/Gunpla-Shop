@@ -13,132 +13,52 @@
   ```
 -->
 <template>
-  <div class="bg-white">
-    <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-      <h2 class="text-2xl font-bold tracking-tight text-gray-900">Customers also purchased</h2>
+  <div class="bg-[url('https://th.gundam.info/content/mgka/narrative/images/02about/bg.jpg')] h-screen p-5 items-center  object-contain justify-center">
+    <div class="p-1 flex flex-wrap items-center justify-center my-7 object-cover object-center w-30 h-50 ">
+      <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative">
+        <div class="background-gold text-center text-gray-900 font-bold ">mg rx-78-2 gundam ver 3.0 </div>
+        <div class="relative ">
+          <img class=" object-contain object-center w-60 h-72 bottom-0 "
+            src="https://cn.lnwfile.com/_/cn/_raw/9r/u8/uo.jpg" alt="Product Image">
+          <div class="absolute flex justify-between left-0 p-1 bg-black bg-opacity-50 text-white bottom-6 w-full">
+            <h3 class="text-lg font-medium">Product Title</h3>
+            <span class="font-bold text-lg">$19.99</span>
+          </div>
+          <!-- <div class="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 m-2 rounded-md text-sm font-medium">SALE
+          </div> -->
+        </div>
+        <div class="p-2 bg-black bg-opacity-25 text-white">
+          <!-- <div class="flex items-center justify-between mb-4"> -->
+          <!-- <h3 class="text-lg font-medium">Product Title</h3>
+            <span class="font-bold text-lg">$19.99</span> -->
+          <!-- </div> -->
+          <div class="flex-col flex">
+            <button
+              class="w-2/3 bg-sky-900 hover:bg-sky-950  text-white font-bold py-2 px-4 absolute bottom-0 left-0 border-cyan-500 border-2 rounded-tr-lg  ">
+              Buy Now
+            </button>
+            <button
+              class="w-1/3 bg-sky-900 hover:bg-sky-950 text-white font-bold py-2 px-4 absolute bottom-0 right-0 border-cyan-500 border-2 rounded-tl-lg flex items-center justify-center">
+              <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.8-3H7.4M11 7H6.3M17 4v6m-3-3h6" />
+              </svg>
+            </button>
 
-      <div class="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-        <div v-for="product in products" :key="product.id" class="group relative" @click="open = true">
-          <div class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80" >
-            <img :src="product.imageSrc" :alt="product.imageAlt" class="h-full w-full object-cover object-center lg:h-full lg:w-full" />
           </div>
-          <div class="mt-4 flex justify-between">
-            <div>
-              <h3 class="text-sm text-gray-700">
-                <a :href="product.href">
-                  <span aria-hidden="true" class="absolute inset-0" />
-                  {{ product.name }}
-                </a>
-              </h3>
-              <p class="mt-1 text-sm text-gray-500">{{ product.color }}</p>
-            </div>
-            <p class="text-sm font-medium text-gray-900">{{ product.price }}</p>
-          </div>
+
+
         </div>
       </div>
     </div>
   </div>
-
-  <TransitionRoot as="template" :show="open">
-    <Dialog as="div" class="relative z-10" @close="open = false">
-      <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
-        <div class="fixed inset-0 hidden bg-gray-500 bg-opacity-75 transition-opacity md:block" />
-      </TransitionChild>
-
-      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div class="flex min-h-full items-stretch justify-center text-center md:items-center md:px-2 lg:px-4">
-          <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0 translate-y-4 md:translate-y-0 md:scale-95" enter-to="opacity-100 translate-y-0 md:scale-100" leave="ease-in duration-200" leave-from="opacity-100 translate-y-0 md:scale-100" leave-to="opacity-0 translate-y-4 md:translate-y-0 md:scale-95">
-            <DialogPanel class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
-              <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
-                <button type="button" class="absolute right-4 top-4 text-gray-400 hover:text-gray-500 sm:right-6 sm:top-8 md:right-6 md:top-6 lg:right-8 lg:top-8" @click="open = false">
-                  <span class="sr-only">Close</span>
-                  <XMarkIcon class="h-6 w-6" aria-hidden="true" />
-                </button>
-
-                <div class="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
-                  <div class="aspect-h-3 aspect-w-2 overflow-hidden rounded-lg bg-gray-100 sm:col-span-4 lg:col-span-5">
-                    <img :src="product.imageSrc" :alt="product.imageAlt" class="object-cover object-center" />
-                  </div>
-                  <div class="sm:col-span-8 lg:col-span-7">
-                    <h2 class="text-2xl font-bold text-gray-900 sm:pr-12">{{ product.name }}</h2>
-
-                    <section aria-labelledby="information-heading" class="mt-2">
-                      <h3 id="information-heading" class="sr-only">Product information</h3>
-
-                      <p class="text-2xl text-gray-900">{{ product.price }}</p>
-
-                      <!-- Reviews -->
-                      <div class="mt-6">
-                        <h4 class="sr-only">Reviews</h4>
-                        <div class="flex items-center">
-                          <div class="flex items-center">
-                            <StarIcon v-for="rating in [0, 1, 2, 3, 4]" :key="rating" :class="[product.rating > rating ? 'text-gray-900' : 'text-gray-200', 'h-5 w-5 flex-shrink-0']" aria-hidden="true" />
-                          </div>
-                          <p class="sr-only">{{ product.rating }} out of 5 stars</p>
-                          <a href="#" class="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500">{{ product.reviewCount }} reviews</a>
-                        </div>
-                      </div>
-                    </section>
-
-                    <section aria-labelledby="options-heading" class="mt-10">
-                      <h3 id="options-heading" class="sr-only">Product options</h3>
-
-                      <form>
-                        <!-- Colors -->
-                        <div>
-                          <h4 class="text-sm font-medium text-gray-900">Color</h4>
-
-                          <RadioGroup v-model="selectedColor" class="mt-4">
-                            <RadioGroupLabel class="sr-only">Choose a color</RadioGroupLabel>
-                            <span class="flex items-center space-x-3">
-                              <RadioGroupOption as="template" v-for="color in product.colors" :key="color.name" :value="color" v-slot="{ active, checked }">
-                                <div :class="[color.selectedClass, active && checked ? 'ring ring-offset-1' : '', !active && checked ? 'ring-2' : '', 'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 focus:outline-none']">
-                                  <RadioGroupLabel as="span" class="sr-only">{{ color.name }}</RadioGroupLabel>
-                                  <span aria-hidden="true" :class="[color.class, 'h-8 w-8 rounded-full border border-black border-opacity-10']" />
-                                </div>
-                              </RadioGroupOption>
-                            </span>
-                          </RadioGroup>
-                        </div>
-
-                        <!-- Sizes -->
-                        <div class="mt-10">
-                          <div class="flex items-center justify-between">
-                            <h4 class="text-sm font-medium text-gray-900">Size</h4>
-                            <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-500">Size guide</a>
-                          </div>
-
-                          <RadioGroup v-model="selectedSize" class="mt-4">
-                            <RadioGroupLabel class="sr-only">Choose a size</RadioGroupLabel>
-                            <div class="grid grid-cols-4 gap-4">
-                              <RadioGroupOption as="template" v-for="size in product.sizes" :key="size.name" :value="size" :disabled="!size.inStock" v-slot="{ active, checked }">
-                                <div :class="[size.inStock ? 'cursor-pointer bg-white text-gray-900 shadow-sm' : 'cursor-not-allowed bg-gray-50 text-gray-200', active ? 'ring-2 ring-indigo-500' : '', 'group relative flex items-center justify-center rounded-md border py-3 px-4 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1']">
-                                  <RadioGroupLabel as="span">{{ size.name }}</RadioGroupLabel>
-                                  <span v-if="size.inStock" :class="[active ? 'border' : 'border-2', checked ? 'border-indigo-500' : 'border-transparent', 'pointer-events-none absolute -inset-px rounded-md']" aria-hidden="true" />
-                                  <span v-else aria-hidden="true" class="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
-                                    <svg class="absolute inset-0 h-full w-full stroke-2 text-gray-200" viewBox="0 0 100 100" preserveAspectRatio="none" stroke="currentColor">
-                                      <line x1="0" y1="100" x2="100" y2="0" vector-effect="non-scaling-stroke" />
-                                    </svg>
-                                  </span>
-                                </div>
-                              </RadioGroupOption>
-                            </div>
-                          </RadioGroup>
-                        </div>
-
-                        <button type="submit" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add to bag</button>
-                      </form>
-                    </section>
-                  </div>
-                </div>
-              </div>
-            </DialogPanel>
-          </TransitionChild>
-        </div>
-      </div>
-    </Dialog>
-  </TransitionRoot>
 </template>
+
+
+
+
+
 <script setup>
 import { ref } from 'vue'
 import {
