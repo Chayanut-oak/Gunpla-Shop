@@ -1,5 +1,5 @@
 <template>
-  <Carousel :autoplay="2000" :wrap-around="true" class="mt-10">
+  <Carousel :autoplay="2000" :wrap-around="true" >
     <Slide class="carouselSlide" v-for="slide in slides" :key="slide">
       <img :src="slide" class="carousel__item" />
     </Slide>

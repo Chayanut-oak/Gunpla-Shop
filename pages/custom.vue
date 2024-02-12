@@ -1,9 +1,8 @@
 <template>
-
-<div data-aos="fade-up" class="row">
-  
-        </div>
-        
+  <div >
+    
+    <Product></Product>
+  </div>
 </template>
   
 <script>

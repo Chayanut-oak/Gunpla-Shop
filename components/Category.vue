@@ -1,6 +1,7 @@
 
 <template>
-    <Carousel :settings="settings" :breakpoints="breakpoints">
+  <div data-aos="fade-up" data-aos-delay="100" >
+  <Carousel  :settings="settings" :breakpoints="breakpoints">
       <Slide v-for="image in images" :key="images" class="transition duration-300 ease-in-out hover:scale-110 ">
         <img class="aspect-['2/2'] w-[150px] h-[150px] object-contain mix-blend-color-burn" :src="image" alt="Product Image">
       </Slide>
@@ -9,6 +10,8 @@
         <Navigation />
       </template>
     </Carousel>
+</div>
+  
   </template>
   
   <script setup>
