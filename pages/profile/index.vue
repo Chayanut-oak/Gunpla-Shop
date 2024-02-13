@@ -7,7 +7,7 @@ definePageMeta({
 <template>
   <div
     class="bg-[url('https://th.gundam.info/content/mgka/narrative/images/02about/bg.jpg')] flex h-screen">
-    <div class="container mx-auto my-2 p-2 h-full w-full">
+    <div class="container mx-auto my-auto  h-auto  w-auto items-center justify-center" >
       <div class="md:flex no-wrap md:-mx-2 ">
         <!-- Left Side -->
         <div class="w-full md:w-2/6 md:mx-2 ">
