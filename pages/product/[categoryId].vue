@@ -1,13 +1,15 @@
 <template>
-  <div  class="bg-[url('https://th.gundam.info/content/mgka/narrative/images/02about/bg.jpg')] h-screen p-5 items-center  object-contain justify-center">
-    <div data-aos="fade-left" class="p-1 flex flex-wrap items-center justify-center my-7 object-cover object-center w-30 h-50 ">
-      <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative" v-for="item in product">
-        <div class="background-gold text-center text-gray-900 font-bold ">{{ item.name }}</div>
+  <div
+    class="bg-[url('https://th.gundam.info/content/mgka/narrative/images/02about/bg.jpg')] h-screen p-5 items-center  object-contain justify-center">
+    <div data-aos="fade-left"
+      class="p-1 flex flex-wrap items-center justify-center my-7 object-cover object-center w-30 h-50 ">
+      <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative"
+        v-for="item in product">
+        <div class="background-gold text-center text-gray-900 font-bold font-['kanit'] ">{{ item.name }}</div>
         <div class="relative ">
-          <img class=" object-contain object-center w-60 h-72 bottom-0 "
-            :src=item.imageSrc alt="Product Image">
+          <img class=" object-cover object-center w-60 h-72 bottom-0 " :src=item.imageSrc alt="Product Image">
           <div class="absolute flex justify-between left-0 p-1 bg-black bg-opacity-50 text-white bottom-6 w-full">
-            <span class="font-bold text-lg">{{item.price}}</span>
+            <span class="font-bold text-lg">{{ item.price }}</span>
           </div>
           <!-- <div class="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 m-2 rounded-md text-sm font-medium">SALE
           </div> -->
@@ -36,6 +38,7 @@
 
         </div>
       </div>
+      
     </div>
   </div>
 </template>
@@ -52,7 +55,7 @@ const route = useRoute()
 const products = [
   {
     id: "1",
-    category:'masterGrade',
+    category: 'masterGrade',
     name: 'rx-78-2 gundam ver 3.0',
     imageSrc: 'https://cn.lnwfile.com/_/cn/_raw/9r/u8/uo.jpg',
     imageAlt: "Front of men's Basic Tee in black.",

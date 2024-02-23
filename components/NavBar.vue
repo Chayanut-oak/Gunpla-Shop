@@ -28,7 +28,7 @@
         </div>
         <div class="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
 
-          <button type="button" @click="openCart = true"
+          <button v-if="route.path !== '/checkout'" type="button" @click="openCart = true"
             class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
             <span class="absolute -inset-1.5" />
             <span class="sr-only">View notifications</span>
@@ -93,10 +93,10 @@
               leave="transform transition ease-in-out duration-500 sm:duration-700" leave-from="translate-x-0"
               leave-to="translate-x-full">
               <DialogPanel class="pointer-events-auto w-screen max-w-md">
-                <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl">
-                  <div class="flex-1 overflow-y-auto px-4 py-6 sm:px-6">
-                    <div class="flex items-start justify-between">
-                      <DialogTitle class="text-3xl font-['kanit'] text-gray-900">ตะกร้าสินค้า</DialogTitle>
+                <div class="flex h-full flex-col overflow-y-scroll bg-white shadow-xl ">
+                  <div class="flex-1 overflow-y-auto  px-4 py-6 sm:px-6 ">
+                    <div class="flex items-start justify-between ">
+                      <DialogTitle class="text-3xl font-['kanit'] text-gray-900 ">ตะกร้าสินค้า</DialogTitle>
                       <div class="ml-3 flex h-7 items-center">
                         <button type="button" class="relative -m-2 p-2 text-gray-400 hover:text-gray-500"
                           @click="openCart = false">
@@ -108,26 +108,25 @@
                     </div>
 
                     <div class="mt-8">
-                      <div class="flow-root">
+                      <div class="flow-root ">
                         <ul role="list" class="-my-6 divide-y divide-gray-200">
-                          <li v-for="product in products" :key="product.id" class="flex py-6">
-                            <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200">
+                          <li v-for="product in products" :key="product.id" class="flex py-6 ">
+                            <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 ">
                               <img :src="product.imageSrc" :alt="product.imageAlt"
                                 class="h-full w-full object-cover object-center" />
                             </div>
 
-                            <div class="ml-4 flex flex-1 flex-col">
+                            <div class="ml-4 flex flex-1 flex-col ">
                               <div>
                                 <div class="flex justify-between text-base font-['kanit'] text-gray-900">
-                                  <h3>
+                                  <h3 class="font-['kanit']">
                                     <a :href="product.href">{{ product.name }}</a>
                                   </h3>
-                                  <p class="ml-4">{{ product.price }}</p>
+                                  <p class="ml-4 font-['kanit']">{{ product.price }} บาท</p>
                                 </div>
-                                <p class="mt-1 text-sm text-gray-500">{{ product.color }}</p>
                               </div>
                               <div class="flex flex-1 items-end justify-between text-sm">
-                                <p class="text-gray-500">Qty {{ product.quantity }}</p>
+                                <p class="font-['kanit'] text-gray-500">จำนวน {{ product.quantity }}</p>
 
                                 <div class="flex">
                                   <button type="button"
@@ -135,21 +134,25 @@
                                 </div>
                               </div>
                             </div>
+
                           </li>
                         </ul>
                       </div>
                     </div>
                   </div>
 
-                  <div class="border-t border-gray-200 px-4 py-6 sm:px-6">
+                  <div class="border-t border-gray-200 px-4 py-6 sm:px-6 ">
                     <div class="flex justify-between text-base font-['kanit'] text-gray-900">
-                      <p>Subtotal</p>
-                      <p>$262.00</p>
+                      <p>ราคารวม</p>
+                      <p>{{ totalPrice }} บาท</p>
                     </div>
-                    <p class="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
-                    <div class="mt-6">
-                      <a href="#"
-                        class="flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-['kanit'] text-white shadow-sm hover:bg-indigo-700">Checkout</a>
+                    <div class="mt-6" >
+                      <NuxtLink to="/checkout" @click="openCart = false">
+                        <a href="#"
+                          class="flex items-center justify-center rounded-md border-2 border-cyan-500   bg-[#2c52b3] px-6 py-3 text-base font-['kanit'] text-white shadow-sm hover:bg-[#1d387c]">
+                          ชำระเงิน
+                        </a>
+                      </NuxtLink>
                     </div>
 
                   </div>
@@ -166,16 +169,23 @@
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems, Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, ShoppingCartIcon, XMarkIcon } from '@heroicons/vue/24/outline'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+// import { useRoute } from 'vue-router';
+// const { data : products } = await useFetch('http:localhost:8080/fetchProduct')
+// console.log(products.value)
+const route = useRoute();
 
 const openCart = ref(false)
+const totalPrice = computed(() => {
+  return products.reduce((total, { price }) => total + parseFloat(price), 0)
+})
 const products = [
   {
     id: 1,
     name: 'Throwback Hip Bag',
     href: '#',
     color: 'Salmon',
-    price: '$90.00',
+    price: '90',
     quantity: 1,
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
     imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
@@ -185,7 +195,7 @@ const products = [
     name: 'Medium Stuff Satchel',
     href: '#',
     color: 'Blue',
-    price: '$32.00',
+    price: '32',
     quantity: 1,
     imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
     imageAlt:

@@ -2,7 +2,7 @@
         <div>
         <NavBar />
         <slot />
-        <!-- <Product /> -->
+        <Product />
 
         <Footer />
     </div>
