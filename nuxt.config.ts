@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default {
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts",'nuxt-aos'],
+  modules: ["@nuxtjs/tailwindcss", "@nuxtjs/google-fonts",'nuxt-aos', '@pinia/nuxt'],
   css: ["~/assets/css/main.css"],
   postcss: {
     plugins: {

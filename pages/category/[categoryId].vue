@@ -4,12 +4,12 @@
     <div data-aos="fade-left"
       class="p-1 flex flex-wrap items-center justify-center my-7 object-cover object-center w-30 h-50 ">
       <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative"
-        v-for="item in product">
+        v-for="item in filteredProduct">
         <div class="background-gold text-center text-gray-900 font-bold font-['kanit'] ">{{ item.name }}</div>
         <div class="relative ">
-          <img class=" object-cover object-center w-60 h-72 bottom-0 " :src=item.imageSrc alt="Product Image">
+          <img class=" object-cover object-center w-60 h-72 bottom-0 " :src=item.images[0] alt="Product Image">
           <div class="absolute flex justify-between left-0 p-1 bg-black bg-opacity-50 text-white bottom-6 w-full">
-            <span class="font-bold text-lg">{{ item.price }}</span>
+            <span class="font-bold font-['kanit'] text-lg">{{ item.price }} บาท</span>
           </div>
           <!-- <div class="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 m-2 rounded-md text-sm font-medium">SALE
           </div> -->
@@ -21,8 +21,8 @@
           <!-- </div> -->
           <div class="flex-col flex">
             <button
-              class="w-2/3 bg-sky-900 hover:bg-sky-950  text-white font-bold py-2 px-4 absolute bottom-0 left-0 border-cyan-500 border-2 rounded-tr-lg  ">
-              Buy Now
+              class="w-2/3 bg-sky-900 hover:bg-sky-950  text-white font-bold font-['kanit'] py-2 px-4 absolute bottom-0 left-0 border-cyan-500 border-2 rounded-tr-lg  ">
+              สั่งทันที
             </button>
             <button
               class="w-1/3 bg-sky-900 hover:bg-sky-950 text-white font-bold py-2 px-4 absolute bottom-0 right-0 border-cyan-500 border-2 rounded-tl-lg flex items-center justify-center">
@@ -38,7 +38,7 @@
 
         </div>
       </div>
-      
+
     </div>
   </div>
 </template>
@@ -49,22 +49,18 @@
 
 <script setup>
 import { ref } from 'vue'
-
+import { useProductStore } from '../../stores/product'
 const route = useRoute()
+const productStore = useProductStore()
 
-const products = [
-  {
-    id: "1",
-    category: 'masterGrade',
-    name: 'rx-78-2 gundam ver 3.0',
-    imageSrc: 'https://cn.lnwfile.com/_/cn/_raw/9r/u8/uo.jpg',
-    imageAlt: "Front of men's Basic Tee in black.",
-    price: '$35',
+
+const filteredProduct = productStore.products.filter((item) => {
+  if (item.hasOwnProperty('grade')) {
+    console.log(item)
+    return item.grade.split('(')[0].trim().replace(" ", "-").toLocaleLowerCase() == route.params.categoryId
   }
-]
-
-const product = products.filter((item) => item.category == route.params.categoryId)
-console.log(product)
+})
+console.log(filteredProduct)
 
 
 </script>
