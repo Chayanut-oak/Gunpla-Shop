@@ -4,4 +4,5 @@ export const useProductStore = defineStore('products', {
     state: () => ({
         products: products
     })
+   
 })
