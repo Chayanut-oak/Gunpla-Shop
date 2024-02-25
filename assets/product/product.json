@@ -311,5 +311,22 @@
         "price": 34.99,
         "stock": 15,
         "description": "High Grade Universal Century model of the MSN-06S Sinanju from Mobile Suit Gundam Unicorn. This model features a striking red color scheme and detailed decals, capturing the menacing presence of the Sinanju."
+    },
+    {
+        "id": 21,
+        "images": [
+            "https://cdn.discordapp.com/attachments/439702858263429128/1206152121020448768/ab.png?ex=65daf7b2&is=65c882b2&hm=acc8986c3a4d8657a43a5dc5dc0902de767b37a6602eadec82f6eab2544773e1&",
+            "https://cdn.discordapp.com/attachments/439702858263429128/1206152121020448768/ab.png?ex=65daf7b2&is=65c882b2&hm=acc8986c3a4d8657a43a5dc5dc0902de767b37a6602eadec82f6eab2544773e1&",
+            "https://cdn.discordapp.com/attachments/439702858263429128/1206152121020448768/ab.png?ex=65daf7b2&is=65c882b2&hm=acc8986c3a4d8657a43a5dc5dc0902de767b37a6602eadec82f6eab2544773e1&"
+        ],
+        "name": "HGUC SINANJU STEIN",
+        "type": "Gunpla",
+        "brand": "Bandai",
+        "series": "Mobile Suit Gundam Unicorn",
+        "scale": "1/144",
+        "grade": "High Grade (HG)",
+        "price": 34.99,
+        "stock": 15,
+        "description": "The MSN-06S-2 Sinanju Stein Narrative Version from Mobile Suit Gundam NT features newly designed joints for the best articulation in High Grade kit history! The engraving of The Sleeve on its chest and forearm is made with a combination of holding and foil stickers, and it's equipped with various weapons, including the new beam rifle, the Sinanju custom bazooka, and more! Don't miss it!"
     }
 ]

@@ -1,9 +1,9 @@
 <template>
   <div
     class="bg-[url('https://th.gundam.info/content/mgka/narrative/images/02about/bg.jpg')] h-screen p-5 items-center  object-contain justify-center">
-    <div data-aos="fade-left"
+    <div data-aos="slide-up"
       class="p-1 flex flex-wrap items-center justify-center my-7 object-cover object-center w-30 h-50 ">
-      <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative"
+      <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative m-5"
         v-for="item in filteredProduct">
         <Nuxt-link :to="`/product/${item.id}`">
           <div class="background-gold text-center text-gray-900 font-bold font-['kanit'] ">{{ item.name }}</div>
@@ -63,7 +63,7 @@ const filteredProduct = productStore.products.filter((item) => {
     return item.grade.split('(')[0].trim().replace(" ", "-").toLocaleLowerCase() == route.params.categoryId
   }
 })
-console.log(filteredProduct)
+
 
 
 </script>

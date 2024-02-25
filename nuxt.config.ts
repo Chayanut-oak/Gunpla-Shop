@@ -15,6 +15,9 @@ export default {
       autoprefixer: {},
     },
   },
+  alias:{
+    assets:"/<rootDir>/assets"
+  },
   googleFonts: {
     families: {
       Kanit: true,

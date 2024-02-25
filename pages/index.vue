@@ -2,16 +2,17 @@
 
 <template>
   <div data-aos="fade-right" data-aos-delay="150"
-    class=" bg-[url('https://en.gundam.info/content/mgka/narrative/images/05research/point02obj.png')] h-full w-full bg-contain bg-no-repeat bg-left-top fixed z-[-99]">
+    class="bg-[url('https://en.gundam.info/content/mgka/narrative/images/05research/point02obj.png')] h-full w-full bg-contain bg-no-repeat bg-left-top fixed z-[-99]">
   </div>
   <CarouselBanner />
   <div class="">
     <div data-aos="fade-up" data-aos-delay="100">
       <Carousel :settings="settings" :breakpoints="breakpoints">
-        <Slide v-for="image in images" :key="images" class="transition duration-300 ease-in-out hover:scale-110 ">
+        <Slide v-for="(image, index) in images" :key="index" class="transition duration-300 ease-in-out hover:scale-110 ">
           <NuxtLink :to="`/category/${image.name}`">
-            <img class="aspect-['2/2'] w-[150px] h-[150px] object-contain mix-blend-color-burn" :src="image.image"
-              alt="Product Image">
+            <img class="aspect-['2/2'] w-[150px] h-[150px] object-contain mix-blend-color-burn"
+              :src="`/${image.image}.png`" alt="Image" />
+
           </NuxtLink>
 
         </Slide>
@@ -22,86 +23,145 @@
     </div>
   </div>
   <div class="flex items-center justify-center  ">
-    <div class="relative flex w-full max-w-[48rem] flex-row rounded-xl bg-white bg-clip-border text-gray-700 shadow-md ">
+    <div class="relative flex w-full max-w-[64rem] flex-row rounded-xl bg-white bg-clip-border text-gray-700 shadow-md ">
       <div
         class="relative m-0 w-2/5 shrink-0 overflow-hidden rounded-xl rounded-r-none bg-white bg-clip-border text-gray-700 ">
-        <img src="https://www.kikatek.com/MMRes/ResourcesMultimediaProducts/Piper-G600/1154/K1419057_g4_161521.jpg"
-          alt="image" class="h-full w-full object-contain" />
+        <img src="https://en.gundam.info/content/mgka/narrative/images/05research/point01obj.png" alt="image"
+          class="h-full w-full object-contain" />
       </div>
       <div class="px-6 ">
+
         <h6
-          class="mb-4 block font-sans text-base font-semibold uppercase leading-relaxed tracking-normal text-pink-500 antialiased">
-          startups
+          class="my-3 block font-sans text-base font-semibold uppercase leading-relaxed tracking-normal text-pink-500 antialiased">
+          MESSAGE from Hajime Katoki
         </h6>
-        <h4
-          class="mb-2 block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-          Lyft launching cross-platform service this week
-        </h4>
-        <p class="mb-8 block font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
-          Like so many organizations these days, Autodesk is a company in
-          transition. It was until recently a traditional boxed software company
-          selling licenses. Yet its own business model disruption is only part of
-          the story
+        <p class="mb-2 block font-sans text-base font-normal leading-relaxed text-gray-700 antialiased">
+          The Narrative Gundam was originally developed as a machine to test Psycho-Frames. It was refurbished and
+          deployed by Luio & Co. during Operation Phoenix Hunt. The C-Packs was a loadout hastily put together and was not
+          part of its original plan. Jona took off on the Narrative Gundam equipped with the C-Packs to stop the II Neo
+          Zeong that was going out of control at the Helium-3 Storage Base within Side 6, and engaged in combat alongside
+          the Phenex.
         </p>
-        <a class="inline-block" href="#">
+        <div class=" flex justify-end">
           <button
-            class="flex select-none items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            class="flex select-none justify-end mb-3 gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button">
-            Learn More
+            View Product
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
               aria-hidden="true" class="h-4 w-4">
               <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"></path>
             </svg>
           </button>
-        </a>
+        </div>
       </div>
     </div>
   </div>
+
+  <Carousel :settings="settings" :breakpoints="breakpoints">
+  <Slide v-for="(item, index) in filteredProduct" :key="index" class="transition duration-300 ease-in-out hover:scale-110">
+    <div class="bg-transparent rounded-lg overflow-hidden border-4 border-orange-200 max-w-sm relative m-5"
+      v-if="index !== filteredProduct.length-1">
+      <!-- Render content for non-last items -->
+      <Nuxt-link :to="`/product/${item.id}`">
+        <div class="background-gold text-center text-gray-900 font-bold font-['kanit']">{{ item.name }}</div>
+        <div class="relative">
+          <img class="object-cover object-center w-60 h-72 bottom-0" :src="item.images[0]" alt="Product Image">
+          <div class="absolute flex justify-between left-0 p-1 bg-black bg-opacity-50 text-white bottom-6 w-full">
+            <span class="font-bold font-['kanit'] text-lg">{{ item.price }} บาท</span>
+          </div>
+        </div>
+      </Nuxt-link>
+      <div class="p-2 bg-black bg-opacity-25 text-white">
+        <!-- Render buttons for non-last items -->
+        <div class="flex-col flex">
+          <button class="w-2/3 bg-sky-900 hover:bg-sky-950 text-white font-bold font-['kanit'] py-2 px-4 absolute bottom-0 left-0 border-cyan-500 border-2 rounded-tr-lg">
+            สั่งทันที
+          </button>
+          <button @click="cartStore.addProduct(item)"
+            class="w-1/3 bg-sky-900 hover:bg-sky-950 text-white font-bold py-2 px-4 absolute bottom-0 right-0 border-cyan-500 border-2 rounded-tl-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.8-3H7.4M11 7H6.3M17 4v6m-3-3h6" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Show View All after the last index -->
+    <div v-else class="bg-transparent rounded-lg overflow-hidden border-4 border-orange-200 max-w-sm relative m-5 py-2 flex flex-col justify-center items-center">
+      <!-- Render empty card for the last item with invisible content -->
+      <NuxtLink :to="'/category/high-grade'">
+        <div class="background-gold text-center text-gray-900 font-bold font-['kanit'] opacity-0">0</div>
+      <div class="relative w-60 h-72 bottom-6 left-0 p-1 flex justify-center items-center">
+        <span class="psw-media-frame psw-fill-x psw-b-1 psw-r-2 psw-c-b-support psw-c-t-accent psw-c-t-interactive-1 psw-aspect-1-1">
+          <span>View All</span>
+        </span>
+      </div>
+      </NuxtLink>
+      
+    </div>
+  </Slide>
+  <template #addons>
+    <Navigation />
+  </template>
+</Carousel>
+
 </template>
 <script setup>
 import { ref } from 'vue'
 import { Carousel, Navigation, Slide } from 'vue3-carousel'
 import 'vue3-carousel/dist/carousel.css'
+import { useCartStore } from '~/stores/cart'
+import { useProductStore } from '~/stores/product'
+const productStore = useProductStore()
+const cartStore = useCartStore()
 
+const filteredProduct = productStore.products.filter((item) => {
+  if (item.hasOwnProperty('grade')) {
+    return item.grade.split('(')[0].trim().replace(" ", "-").toLocaleLowerCase() == 'high-grade'
+  }
+})
+console.log(filteredProduct.length)
 const images = ref([{
   "name": "high-grade",
-  "image": "https://media.discordapp.net/attachments/959359393776959553/1206208339957260328/latest.png?ex=65db2c0e&is=65c8b70e&hm=dc7a67ebf6b76a6f6bf85d64feb9d915a1f11cc0f1b91b4dcd29c04a3fd1b9b6&=&format=webp&quality=lossless"
+  "image": "hg"
 },
 {
   "name": "real-grade",
-  "image": "https://cdn.discordapp.com/attachments/959359393776959553/1206203561835495434/latest.png?ex=65db279b&is=65c8b29b&hm=2c870688f91b434b11d1e35104647c57fa90ae8ce72f8147daad5600d7c20912&"
+  "image": "rg"
 },
 {
   "name": "master-grade",
-  "image": "https://media.discordapp.net/attachments/959359393776959553/1206223126728540181/latest.png?ex=65db39d3&is=65c8c4d3&hm=db01a7911cdaa27ff6813c1dde7cf70bf13d4e80232830c82861b2d6620b08aa&=&format=webp&quality=lossless"
+  "image": "mg"
 },
 {
   "name": "master-grade-sd",
-  "image": "https://media.discordapp.net/attachments/959359393776959553/1206223435269799936/latest.png?ex=65db3a1d&is=65c8c51d&hm=5891a79dcd47624eb2183d134c60445a4fa28f048a4551fef1495b24765c7d6d&=&format=webp&quality=lossless"
+  "image": "mgsd"
 },
 {
   "name": "full-mechanic",
-  "image": "https://media.discordapp.net/attachments/959359393776959553/1206223493172301874/1000.png?ex=65db3a2b&is=65c8c52b&hm=a34f5a780a06d2ab8690411cfada7bd5fdf7ac9029a91eb8a166a0c0fff7d016&=&format=webp&quality=lossless"
+  "image": "fm"
 },
 {
   "name": "sd",
-  "image": "https://media.discordapp.net/attachments/959359393776959553/1206223628161515551/latest.png?ex=65db3a4b&is=65c8c54b&hm=0379c0d4be884b6140105afa95f0fe52ebee9b4e545a268ddd30138954faa307&=&format=webp&quality=lossless"
+  "image": "sdex"
 },
 {
   "name": "perfect-grade",
-  "image": "https://media.discordapp.net/attachments/959359393776959553/1206225156712693810/b7a639c4ef18200494c8c2d844df2e1f.png?ex=65db3bb7&is=65c8c6b7&hm=f0bbcb315a3c3f9bb2eb2ca6cd4ac1819f9626329416389530362a2a44d09549&=&format=webp&quality=lossless&width=1440&height=408"
+  "image": "pg2"
 },
 {
   "name": "meatal-build",
-  "image": "https://media.discordapp.net/attachments/959359393776959553/1206223844227022848/latest.png?ex=65db3a7f&is=65c8c57f&hm=c199f311ee73f6a8010e1920ead7ebd4cd01697a6cff1bba662c272eb205535c&=&format=webp&quality=lossless"
+  "image": "mb"
 },
 {
   "name": "metal-structure",
-  "image": "https://media.discordapp.net/attachments/959359393776959553/1206223888732651621/latest.png?ex=65db3a89&is=65c8c589&hm=0d94352605fa98aa11748de77b07893ebaf34639bce545864ad464e40ac810fd&=&format=webp&quality=lossless"
+  "image": "metalstructure"
 },
 {
   "name": "mega-size",
-  "image": "https://media.discordapp.net/attachments/959359393776959553/1206224899543277649/latest.png?ex=65db3b7a&is=65c8c67a&hm=ae7d7ed319b12149bc59a13b41fd84d4e6d76f699e2b064d7341082d681472fa&=&format=webp&quality=lossless"
+  "image": "mega"
 }
 ]);
 const settings = ref({
