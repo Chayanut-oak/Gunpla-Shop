@@ -111,14 +111,12 @@
           <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
             <!-- Filters -->
             <form class="hidden lg:block">
-
-
-              <Disclosure as="div" v-for="section in filters" :key="section.id" class="border-b border-gray-200 py-6"
+              <Disclosure as="div" :key="series.id" class="border-b border-gray-200 py-6"
                 v-slot="{ open }">
                 <h3 class="-my-3 flow-root">
                   <DisclosureButton
                     class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                    <span class="font-medium text-gray-900">{{ section.name }}</span>
+                    <span class="font-medium text-gray-900" >{{ series.name }}</span>
                     <span class="ml-6 flex items-center">
                       <PlusIcon v-if="!open" class="h-5 w-5" aria-hidden="true" />
                       <MinusIcon v-else class="h-5 w-5" aria-hidden="true" />
@@ -127,24 +125,95 @@
                 </h3>
                 <DisclosurePanel class="pt-6">
                   <div class="space-y-4">
-                    <div v-for="(option, optionIdx) in section.options" :key="option.value" class="flex items-center">
-                      <input :id="`filter-${section.id}-${optionIdx}`" :name="`${section.id}[]`" :value="option.value"
-                        type="radio" :checked="option.checked" @change="handleOptionChange(section.name, option.checked, option.value)"
+                    <div v-for="(option, optionIdx) in series.options" :key="option.value" class="flex items-center">
+                      <input :id="`filter-${series.id}-${optionIdx}`" :name="`${series.id}`" :value="option.value"
+                        type="radio" :checked="option.checked"     v-model="newSerie"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                      <label :for="`filter-${section.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600">{{ option.value
+                      <label :for="`filter-${series.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600">{{ option.value
                       }}</label>
                     </div>
                   </div>
                 </DisclosurePanel>
               </Disclosure>
+              
+              <Disclosure as="div" :key="type.id" class="border-b border-gray-200 py-6"
+                v-slot="{ open }">
+                <h3 class="-my-3 flow-root">
+                  <DisclosureButton
+                    class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                    <span class="font-medium text-gray-900" >{{ type.name }}</span>
+                    <span class="ml-6 flex items-center">
+                      <PlusIcon v-if="!open" class="h-5 w-5" aria-hidden="true" />
+                      <MinusIcon v-else class="h-5 w-5" aria-hidden="true" />
+                    </span>
+                  </DisclosureButton>
+                </h3>
+                <DisclosurePanel class="pt-6">
+                  <div class="space-y-4">
+                    <div v-for="(option, optionIdx) in type.options" :key="option.value" class="flex items-center">
+                      <input :id="`filter-${type.id}-${optionIdx}`" :name="`${type.id}`" :value="option.value"
+                        type="radio" :checked="option.checked"     v-model="newType"
+                        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                      <label :for="`filter-${type.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600">{{ option.value
+                      }}</label>
+                    </div>
+                  </div>
+                </DisclosurePanel>
+              </Disclosure>
+              <Disclosure as="div"  :key="grade.id" class="border-b border-gray-200 py-6"
+                v-slot="{ open }">
+                <h3 class="-my-3 flow-root">
+                  <DisclosureButton
+                    class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                    <span class="font-medium text-gray-900" >{{ grade.name }}</span>
+                    <span class="ml-6 flex items-center">
+                      <PlusIcon v-if="!open" class="h-5 w-5" aria-hidden="true" />
+                      <MinusIcon v-else class="h-5 w-5" aria-hidden="true" />
+                    </span>
+                  </DisclosureButton>
+                </h3>
+                <DisclosurePanel class="pt-6">
+                  <div class="space-y-4">
+                    <div v-for="(option, optionIdx) in grade.options" :key="option.value" class="flex items-center">
+                      <input :id="`filter-${grade.id}-${optionIdx}`" :name="`${grade.id}`" :value="option.value"
+                        type="radio" :checked="option.checked"     v-model="newGrade"
+                        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                      <label :for="`filter-${grade.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600">{{ option.value
+                      }}</label>
+                    </div>
+                  </div>
+                </DisclosurePanel>
+              </Disclosure>
+              <Disclosure as="div"  :key="scale.id" class="border-b border-gray-200 py-6"
+                v-slot="{ open }">
+                <h3 class="-my-3 flow-root">
+                  <DisclosureButton
+                    class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
+                    <span class="font-medium text-gray-900" >{{ scale.name }}</span>
+                    <span class="ml-6 flex items-center">
+                      <PlusIcon v-if="!open" class="h-5 w-5" aria-hidden="true" />
+                      <MinusIcon v-else class="h-5 w-5" aria-hidden="true" />
+                    </span>
+                  </DisclosureButton>
+                </h3>
+                <DisclosurePanel class="pt-6">
+                  <div class="space-y-4">
+                    <div v-for="(option, optionIdx) in scale.options" :key="option.value" class="flex items-center">
+                      <input :id="`filter-${scale.id}-${optionIdx}`" :name="`${scale.id}`" :value="option.value"
+                        type="radio" :checked="option.checked"     v-model="newScale"
+                        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                      <label :for="`filter-${scale.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600">{{ option.value
+                      }}</label>
+                    </div>
+                  </div>
+                </DisclosurePanel>
+              </Disclosure>
+             
             </form>
-
             <!-- Product grid -->
             <div class="lg:col-span-3">
               <!-- Your content -->
               <ProductsList  />
-
-
             </div>
           </div>
         </section>
@@ -179,9 +248,12 @@ const sortOptions = [
   { name: 'Price: Low to High', href: '#', current: false },
   { name: 'Price: High to Low', href: '#', current: false },
 ]
-const filters = [
-  {
-    id: 'series',
+const newGrade = ref(null)
+const newScale = ref(null)
+const newType = ref(null)
+const newSerie = ref(null)
+const series = {
+    id: 'seriesId',
     name: 'Series',
     options: [
       { value: 'Universal Century', checked: false },
@@ -196,18 +268,19 @@ const filters = [
       { value: 'Post Disaster', checked: false },
       { value: 'Ad Stella', checked: false },
       { value: 'Present', checked: false },
-    ]
-  },
-  {
-    id: 'type',
+    ]}
+
+const type =   {
+    id: 'typeId',
     name: 'Type',
     options: [
       { value: 'Gunpla', checked: false },
       { value: 'Tool', checked: false },
     ],
-  },
-  {
-    id: 'grade',
+  }
+
+const grade =  {
+    id: 'gradeId',
     name: 'Grade',
     options: [
       { value: 'SD Super Deformed', checked: false },
@@ -220,8 +293,10 @@ const filters = [
       { value: 'Metal Build', checked: false },
       { value: 'Mega Size', checked: false },
     ],
-  },{
-    id: 'scale',
+  }
+const scale = 
+  {
+    id: 'scaleId',
     name: 'Scale',
     options: [
       { value: '1/144', checked: false },
@@ -229,13 +304,26 @@ const filters = [
       { value: '1/60', checked: false },
       { value: '1/48', checked: false },
     ],
-  },
-]
-
-const handleOptionChange = (name,checked, value) => {
-  if (!checked && name == "Series") {
-    productStore.filterProduct(name,value)
   }
-}
+
+watch(newGrade, (newValue, oldValue) => {
+  console.log('New Grade value changed:', newValue)
+  // ทำสิ่งที่ต้องการเมื่อค่า newGrade เปลี่ยนแปลง
+})
+
+watch(newScale, (newValue, oldValue) => {
+  console.log('New Scale value changed:', newValue)
+  // ทำสิ่งที่ต้องการเมื่อค่า newScale เปลี่ยนแปลง
+})
+
+watch(newType, (newValue, oldValue) => {
+  console.log('New Type value changed:', newValue)
+  // ทำสิ่งที่ต้องการเมื่อค่า newType เปลี่ยนแปลง
+})
+
+watch(newSerie, (newValue, oldValue) => {
+  console.log('New Serie value changed:', newValue)
+  // ทำสิ่งที่ต้องการเมื่อค่า newSerie เปลี่ยนแปลง
+})
 const mobileFiltersOpen = ref(false)
 </script>
