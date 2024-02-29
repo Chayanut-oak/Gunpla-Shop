@@ -1,42 +1,45 @@
 import { defineStore } from "pinia";
 import products from '../assets/product/product.json'
+import { useProductStore } from '@/stores/product'
 export const useCartStore = defineStore('cart', {
     state: () => ({
-        products: [],
+        cart: [],
     }),
     persist: {
         storage: persistedState.localStorage,
     },
     getters: {
         itemCount() {
-            return this.products.length;
+            return this.cart.length;
         },
         totalPrice() {
-            return this.products.reduce((total, item) => total + item.price * item.quantity, 0);
+            return this.cart.reduce((total, item) => total + item.price * item.quantity, 0);
         },
     },
     actions: {
         addProduct(item) {
-            const existingItem = this.products.find((i) => i.id === item.id);
-
+            
+            const productStore = useProductStore();
+            const existingItem = this.cart.find((i) => i.id === item.id);
+            const productInDatabase = productStore.products.find((i) => i.id === item.id);
             if (existingItem) {
-                if (existingItem.quantity < existingItem.stock) {
+                if (existingItem.quantity < productInDatabase.stock) {
                     existingItem.quantity++;
                 } else {
                     alert("สินค้าหมดแล้ว");
                 }
             } else {
-                this.products.push({ ...item, quantity: 1 });
+                this.cart.push({ ...item, quantity: 1 });
             }
         },
         removeProduct(id) {
-            const index = this.products.findIndex((item) => item.id === id);
+            const index = this.cart.findIndex((item) => item.id === id);
             if (index !== -1) {
-                this.products.splice(index, 1);
+                this.cart.splice(index, 1);
             }
         },
         clearCart() {
-            this.products = [];
+            this.cart = [];
         },
     }
 })

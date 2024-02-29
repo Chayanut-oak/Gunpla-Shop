@@ -110,27 +110,29 @@
                     <div class="mt-8">
                       <div class="flow-root ">
                         <ul role="list" class="-my-6 divide-y divide-gray-200">
-                          <li v-for="product in products" :key="product.id" class="flex py-6 ">
+                          <li v-for="item in cartStore.cart" :key="item.name" class="flex py-6 ">
                             <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 ">
-                              <img :src="product.imageSrc" :alt="product.imageAlt"
+                              <img :src="item.images[0]" alt="Product Images"
                                 class="h-full w-full object-cover object-center" />
                             </div>
 
                             <div class="ml-4 flex flex-1 flex-col ">
                               <div>
                                 <div class="flex justify-between text-base font-['kanit'] text-gray-900">
-                                  <h3 class="font-['kanit']">
-                                    <a :href="product.href">{{ product.name }}</a>
-                                  </h3>
-                                  <p class="ml-4 font-['kanit']">{{ product.price }} บาท</p>
+                                  <Nuxt-link :to="`/product/${item.id}`">
+                                    <h3 class="font-['kanit']">
+                                      <a>{{ item.name }}</a>
+                                    </h3>
+                                  </Nuxt-link>
+                                  <p class="ml-4 font-['kanit']">{{ item.price }} บาท</p>
                                 </div>
                               </div>
                               <div class="flex flex-1 items-end justify-between text-sm">
-                                <p class="font-['kanit'] text-gray-500">จำนวน {{ product.quantity }}</p>
+                                <p class="font-['kanit'] text-gray-500">จำนวน {{ item.quantity }} x {{ item.price }} = {{ item.quantity*item.price }} บาท</p>
 
                                 <div class="flex">
-                                  <button type="button"
-                                    class="font-['kanit'] text-indigo-600 hover:text-indigo-500">Remove</button>
+                                  <button @click="cartStore.removeProduct(item.id)" type="button"
+                                    class="font-['kanit'] text-indigo-600 hover:text-indigo-500">ลบ</button>
                                 </div>
                               </div>
                             </div>
@@ -144,9 +146,9 @@
                   <div class="border-t border-gray-200 px-4 py-6 sm:px-6 ">
                     <div class="flex justify-between text-base font-['kanit'] text-gray-900">
                       <p>ราคารวม</p>
-                      <p>{{ totalPrice }} บาท</p>
+                      <p>{{ cartStore.totalPrice }} บาท</p>
                     </div>
-                    <div class="mt-6" >
+                    <div class="mt-6">
                       <NuxtLink to="/checkout" @click="openCart = false">
                         <a href="#"
                           class="flex items-center justify-center rounded-md border-2 border-cyan-500   bg-[#2c52b3] px-6 py-3 text-base font-['kanit'] text-white shadow-sm hover:bg-[#1d387c]">
@@ -167,6 +169,7 @@
 </template>
 
 <script setup>
+import { useCartStore } from '@/stores/cart';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems, Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, ShoppingCartIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { ref, computed } from 'vue'
@@ -174,35 +177,9 @@ import { ref, computed } from 'vue'
 // const { data : products } = await useFetch('http:localhost:8080/fetchProduct')
 // console.log(products.value)
 const route = useRoute();
-
+const cartStore = useCartStore()
 const openCart = ref(false)
-const totalPrice = computed(() => {
-  return products.reduce((total, { price }) => total + parseFloat(price), 0)
-})
-const products = [
-  {
-    id: 1,
-    name: 'Throwback Hip Bag',
-    href: '#',
-    color: 'Salmon',
-    price: '90',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
-    imageAlt: 'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
-  },
-  {
-    id: 2,
-    name: 'Medium Stuff Satchel',
-    href: '#',
-    color: 'Blue',
-    price: '32',
-    quantity: 1,
-    imageSrc: 'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
-    imageAlt:
-      'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
-  },
-  // More products...
-]
+
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
   { name: 'Team', href: '#', current: false },
