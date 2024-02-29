@@ -1,10 +1,9 @@
 <template>
-  <div
-    class="bg-[url('https://th.gundam.info/content/mgka/narrative/images/02about/bg.jpg')] h-screen p-5 items-center  object-contain justify-center">
+ 
     <div data-aos="slide-up"
       class="p-1 flex flex-wrap items-center justify-center my-7 object-cover object-center w-30 h-50 ">
       <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative m-5"
-        v-for="item in filteredProduct">
+        v-for="item in filteredProducts">
         <Nuxt-link :to="`/product/${item.id}`">
           <div class="background-gold text-center text-gray-900 font-bold font-['kanit'] ">{{ item.name }}</div>
           <div class="relative ">
@@ -42,7 +41,6 @@
       </div>
 
     </div>
-  </div>
 </template>
 
 
@@ -50,20 +48,27 @@
 
 
 <script setup>
-import { useCartStore } from '../../stores/cart'
-import { useProductStore } from '../../stores/product'
-import { ref } from 'vue'
+import { useCartStore } from '../stores/cart'
+import { useProductStore } from '../stores/product'
+import { ref ,watch} from 'vue'
 const route = useRoute()
 const productStore = useProductStore()
 const cartStore = useCartStore()
+const allProduct = productStore.products
+const filterValue = productStore.filterProducts
 
-const filteredProduct = productStore.products.filter((item) => {
-  if (item.hasOwnProperty('grade')) {
-    console.log(item)
-    return item.grade.split('(')[0].trim().replace(" ", "-").toLocaleLowerCase() == route.params.categoryId
-  }
+const filteredProducts = computed(() => {
+ 
+ return handleSeriesChange(filterValue)
 })
 
+const handleSeriesChange = (newSeries) => {
+  if(newSeries != ""){
+    return  allProduct.filter((item) => item.series == newSeries)
+  }else{
+    return allProduct
+  }
+}
 
 
 </script>
