@@ -1,6 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default {
   devtools: { enabled: true },
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.BASE_URL || "http://localhost:3000/api",
+    },
+  },
+  routeRules: {
+    "/api/**": { proxy: { to: "http://localhost:8080/**" } },
+  },
   modules: [
     "@nuxtjs/tailwindcss",
     "@nuxtjs/google-fonts",
@@ -15,8 +23,8 @@ export default {
       autoprefixer: {},
     },
   },
-  alias:{
-    assets:"/<rootDir>/assets"
+  alias: {
+    assets: "/<rootDir>/assets",
   },
   googleFonts: {
     families: {
