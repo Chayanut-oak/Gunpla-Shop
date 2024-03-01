@@ -3,16 +3,22 @@ import products from '../assets/product/product.json'
 export const useProductStore = defineStore('products', {
     state: () => ({
         products: products,
-        filterProducts:""
+        filteredProducts: []
     }),
     getters: {
-        
-      
+
+
     },
     actions: {
-        filterProduct(name , item) {
-            this.filterProducts = item
-        },
+        // filterProduct(newType, newGrade, newScale, newSerie) {
+        //     this.filteredProducts = this.products.filter(i => {
+        //         console.log(newType, newGrade, newScale, newSerie)
+        //         i.type == newType ||
+        //             i.grade == newGrade ||
+        //             i.scale == newScale ||
+        //             i.series == newSerie
+        //     })
+        // },
     }
-   
+
 })

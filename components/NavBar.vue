@@ -20,9 +20,9 @@
           </NuxtLink>
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
-              <a v-for="item in navigation" :key="item.name" :href="item.href"
-                :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base', 'font[\'kanit\']']"
-                :aria-current="item.current ? 'page' : undefined">{{ item.name }}</a>
+              <NuxtLink v-for="item in navigation" :key="item.name" :to="item.linkTo"
+                :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base', 'font-kanit']"
+                >{{ item.name }}</NuxtLink>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@
     <DisclosurePanel class="sm:hidden">
       <div class="space-y-1 px-2 pb-3 pt-2">
         <DisclosureButton v-for="item in navigation" :key="item.name" as="a" :href="item.href"
-          :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-[\'kanit\']']"
+          :class="[item.current ? 'bg-gray-900 text-white font-kanit' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base font-kanit']"
           :aria-current="item.current ? 'page' : undefined">{{ item.name }}</DisclosureButton>
       </div>
     </DisclosurePanel>
@@ -128,7 +128,8 @@
                                 </div>
                               </div>
                               <div class="flex flex-1 items-end justify-between text-sm">
-                                <p class="font-['kanit'] text-gray-500">จำนวน {{ item.quantity }} x {{ item.price }} = {{ item.quantity*item.price }} บาท</p>
+                                <p class="font-['kanit'] text-gray-500">จำนวน {{ item.quantity }} x {{ item.price }} = {{
+                                  item.quantity * item.price }} บาท</p>
 
                                 <div class="flex">
                                   <button @click="cartStore.removeProduct(item.id)" type="button"
@@ -181,9 +182,8 @@ const cartStore = useCartStore()
 const openCart = ref(false)
 
 const navigation = [
-  { name: 'Dashboard', href: '#', current: true },
-  { name: 'Team', href: '#', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false },
+  { name: 'หน้าหลัก',linkTo: "/", current:false },
+  { name: 'สินค้าทั้งหมด',linkTo: "/category/products", current:false },
+
 ]
 </script>

@@ -17,7 +17,7 @@
               <DialogPanel
                 class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
                 <div class="flex items-center justify-between px-4">
-                  <h2 class="text-lg font-medium text-gray-900">Filters</h2>
+                  <h2 class="text-lg  font-['kanit'] text-gray-900">Filters</h2>
                   <button type="button"
                     class="-mr-2 flex h-10 w-10 items-center justify-center rounded-md bg-white p-2 text-gray-400"
                     @click="mobileFiltersOpen = false">
@@ -35,7 +35,7 @@
                     <h3 class="-mx-2 -my-3 flow-root">
                       <DisclosureButton
                         class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                        <span class="font-medium text-gray-900">{{ section.name }}</span>
+                        <span class=" font-['kanit'] text-gray-900">{{ section.name }}</span>
                         <span class="ml-6 flex items-center">
                           <PlusIcon v-if="!open" class="h-5 w-5" aria-hidden="true" />
                           <MinusIcon v-else class="h-5 w-5" aria-hidden="true" />
@@ -63,14 +63,14 @@
 
       <main class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div class="flex items-baseline justify-between border-b border-gray-200 pb-6 pt-24">
-          <h1 class="text-4xl font-bold tracking-tight text-gray-900">New Arrivals</h1>
+          <h1 class="text-4xl font-bold font-['kanit'] tracking-tight text-gray-900">สินค้าทั้งหมด</h1>
 
           <div class="flex items-center">
             <Menu as="div" class="relative inline-block text-left">
               <div>
                 <MenuButton
-                  class="group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900">
-                  Sort
+                  class="group inline-flex justify-center text-sm  font-['kanit']  text-gray-700 hover:text-gray-900">
+                  เรียงลำดับ
                   <ChevronDownIcon class="-mr-1 ml-1 h-5 w-5 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
                     aria-hidden="true" />
                 </MenuButton>
@@ -85,8 +85,9 @@
                   <div class="py-1">
                     <MenuItem v-for="option in sortOptions" :key="option.name" v-slot="{ active }">
                     <a :href="option.href"
-                      :class="[option.current ? 'font-medium text-gray-900' : 'text-gray-500', active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm']">{{
-                        option.name }}</a>
+                      :class="[option.current ? 'font-[\'kanit\'] text-gray-900' : 'text-gray-500', active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm', 'font-kanit']">{{
+                        option.name }}
+                    </a>
                     </MenuItem>
                   </div>
                 </MenuItems>
@@ -111,12 +112,11 @@
           <div class="grid grid-cols-1 gap-x-8 gap-y-10 lg:grid-cols-4">
             <!-- Filters -->
             <form class="hidden lg:block">
-              <Disclosure as="div" :key="series.id" class="border-b border-gray-200 py-6"
-                v-slot="{ open }">
+              <Disclosure as="div" :key="series.id" class="border-b border-gray-200 py-6" v-slot="{ open }">
                 <h3 class="-my-3 flow-root">
                   <DisclosureButton
                     class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                    <span class="font-medium text-gray-900" >{{ series.name }}</span>
+                    <span class=" font-['kanit'] text-gray-900">{{ series.name }}</span>
                     <span class="ml-6 flex items-center">
                       <PlusIcon v-if="!open" class="h-5 w-5" aria-hidden="true" />
                       <MinusIcon v-else class="h-5 w-5" aria-hidden="true" />
@@ -127,21 +127,20 @@
                   <div class="space-y-4">
                     <div v-for="(option, optionIdx) in series.options" :key="option.value" class="flex items-center">
                       <input :id="`filter-${series.id}-${optionIdx}`" :name="`${series.id}`" :value="option.value"
-                        type="radio" :checked="option.checked"     v-model="newSerie"
-                        class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                      <label :for="`filter-${series.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600">{{ option.value
+                        type="radio" :checked="option.checked" v-model="selectedSerie"
+                        class="h-4 w-4 rounded  border-gray-300 text-indigo-600 focus:ring-indigo-500" />
+                      <label :for="`filter-${series.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600 font-['kanit']">{{ option.value
                       }}</label>
                     </div>
                   </div>
                 </DisclosurePanel>
               </Disclosure>
-              
-              <Disclosure as="div" :key="type.id" class="border-b border-gray-200 py-6"
-                v-slot="{ open }">
+
+              <Disclosure as="div" :key="type.id" class="border-b border-gray-200 py-6" v-slot="{ open }">
                 <h3 class="-my-3 flow-root">
                   <DisclosureButton
                     class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                    <span class="font-medium text-gray-900" >{{ type.name }}</span>
+                    <span class=" font-['kanit'] text-gray-900">{{ type.name }}</span>
                     <span class="ml-6 flex items-center">
                       <PlusIcon v-if="!open" class="h-5 w-5" aria-hidden="true" />
                       <MinusIcon v-else class="h-5 w-5" aria-hidden="true" />
@@ -152,20 +151,19 @@
                   <div class="space-y-4">
                     <div v-for="(option, optionIdx) in type.options" :key="option.value" class="flex items-center">
                       <input :id="`filter-${type.id}-${optionIdx}`" :name="`${type.id}`" :value="option.value"
-                        type="radio" :checked="option.checked"     v-model="newType"
+                        type="radio" :checked="option.checked" v-model="selectedType"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                      <label :for="`filter-${type.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600">{{ option.value
+                      <label :for="`filter-${type.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600 font-['kanit']" >{{ option.value
                       }}</label>
                     </div>
                   </div>
                 </DisclosurePanel>
               </Disclosure>
-              <Disclosure as="div"  :key="grade.id" class="border-b border-gray-200 py-6"
-                v-slot="{ open }">
+              <Disclosure as="div" :key="grade.id" class="border-b border-gray-200 py-6" v-slot="{ open, }">
                 <h3 class="-my-3 flow-root">
                   <DisclosureButton
                     class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                    <span class="font-medium text-gray-900" >{{ grade.name }}</span>
+                    <span class=" font-['kanit'] text-gray-900">{{ grade.name }}</span>
                     <span class="ml-6 flex items-center">
                       <PlusIcon v-if="!open" class="h-5 w-5" aria-hidden="true" />
                       <MinusIcon v-else class="h-5 w-5" aria-hidden="true" />
@@ -176,20 +174,19 @@
                   <div class="space-y-4">
                     <div v-for="(option, optionIdx) in grade.options" :key="option.value" class="flex items-center">
                       <input :id="`filter-${grade.id}-${optionIdx}`" :name="`${grade.id}`" :value="option.value"
-                        type="radio" :checked="option.checked"     v-model="newGrade"
+                        type="radio" :checked="option.checked" v-model="selectedGrade"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                      <label :for="`filter-${grade.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600">{{ option.value
+                      <label :for="`filter-${grade.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600 font-['kanit']">{{ option.value
                       }}</label>
                     </div>
                   </div>
                 </DisclosurePanel>
               </Disclosure>
-              <Disclosure as="div"  :key="scale.id" class="border-b border-gray-200 py-6"
-                v-slot="{ open }">
+              <Disclosure as="div" :key="scale.id" class="border-b border-gray-200 py-6" v-slot="{ open }">
                 <h3 class="-my-3 flow-root">
                   <DisclosureButton
                     class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                    <span class="font-medium text-gray-900" >{{ scale.name }}</span>
+                    <span class=" font-['kanit'] text-gray-900">{{ scale.name }}</span>
                     <span class="ml-6 flex items-center">
                       <PlusIcon v-if="!open" class="h-5 w-5" aria-hidden="true" />
                       <MinusIcon v-else class="h-5 w-5" aria-hidden="true" />
@@ -200,20 +197,60 @@
                   <div class="space-y-4">
                     <div v-for="(option, optionIdx) in scale.options" :key="option.value" class="flex items-center">
                       <input :id="`filter-${scale.id}-${optionIdx}`" :name="`${scale.id}`" :value="option.value"
-                        type="radio" :checked="option.checked"     v-model="newScale"
+                        type="radio" :checked="option.checked" v-model="selectedScale"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                      <label :for="`filter-${scale.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600">{{ option.value
+                      <label :for="`filter-${scale.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600 font-['kanit']">{{ option.value
                       }}</label>
                     </div>
                   </div>
                 </DisclosurePanel>
               </Disclosure>
-             
+
             </form>
             <!-- Product grid -->
+            <!-- {{ filteredProducts }} -->
             <div class="lg:col-span-3">
               <!-- Your content -->
-              <ProductsList  />
+              <div data-aos="slide-up"
+                class="p-1 flex flex-wrap items-center justify-center my-7 object-cover object-center w-30 h-50 ">
+                <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative m-5"
+                  v-for="item in filteredProducts" :key="item.name">
+                  <Nuxt-link :to="`/product/${item.id}`">
+                    <div class="background-gold text-center text-gray-900 font-bold font-['kanit'] ">{{ item.name }}</div>
+                    <div class="relative ">
+                      <img class=" object-cover object-center w-60 h-72 bottom-0 " :src=item.images[0]
+                        alt="Product Image">
+                      <div
+                        class="absolute flex justify-between left-0 p-1 bg-black bg-opacity-50 text-white bottom-6 w-full">
+                        <span class="font-bold font-['kanit'] text-lg">{{ item.price }} บาท</span>
+                      </div>
+                      <!-- <div class="absolute top-0 right-0 bg-red-500 text-white px-2 py-1 m-2 rounded-md text-sm  font-['kanit']">SALE
+          </div> -->
+                    </div>
+                  </Nuxt-link>
+                  <div class="p-2 bg-black bg-opacity-25 text-white">
+
+                    <div class="flex-col flex">
+                      <button
+                        class="w-2/3 bg-sky-900 hover:bg-sky-950  text-white font-bold font-['kanit'] py-2 px-4 absolute bottom-0 left-0 border-cyan-500 border-2 rounded-tr-lg  ">
+                        สั่งทันที
+                      </button>
+                      <button @click="cartStore.addProduct(item)"
+                        class="w-1/3 bg-sky-900 hover:bg-sky-950 text-white font-bold py-2 px-4 absolute bottom-0 right-0 border-cyan-500 border-2 rounded-tl-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.8-3H7.4M11 7H6.3M17 4v6m-3-3h6" />
+                        </svg>
+                      </button>
+
+                    </div>
+
+
+                  </div>
+                </div>
+
+              </div>
             </div>
           </div>
         </section>
@@ -239,91 +276,118 @@ import {
 } from '@headlessui/vue'
 import { XMarkIcon } from '@heroicons/vue/24/outline'
 import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/vue/20/solid'
-import { useProductStore } from '../stores/product'
+import { useProductStore } from '@/stores/product'
+import { useCartStore } from '@/stores/cart'
 const productStore = useProductStore()
+const cartStore = useCartStore()
 const sortOptions = [
-  { name: 'Most Popular', href: '#', current: false },
-  { name: 'Best Rating', href: '#', current: false },
-  { name: 'Newest', href: '#', current: false },
-  { name: 'Price: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
+  { name: 'ราคาสูงสุด', href: '#', current: false },
+  { name: 'ราคาต่ำสุด', href: '#', current: false },
 ]
-const newGrade = ref(null)
-const newScale = ref(null)
-const newType = ref(null)
-const newSerie = ref(null)
+
 const series = {
-    id: 'seriesId',
-    name: 'Series',
-    options: [
-      { value: 'Universal Century', checked: false },
-      { value: 'Future Century', checked: false },
-      { value: 'After Colony', checked: false },
-      { value: 'After War', checked: false },
-      { value: 'Correct Century', checked: false },
-      { value: 'Cosmic Era', checked: false },
-      { value: 'Anno Domini', checked: false },
-      { value: 'Advanced Generation', checked: false },
-      { value: 'Regild Century', checked: false },
-      { value: 'Post Disaster', checked: false },
-      { value: 'Ad Stella', checked: false },
-      { value: 'Present', checked: false },
-    ]}
+  id: 'seriesId',
+  name: 'Series',
+  options: [
+    { value: "All", checked: true },
+    { value: 'Universal Century', checked: false },
+    { value: 'Future Century', checked: false },
+    { value: 'After Colony', checked: false },
+    { value: 'After War', checked: false },
+    { value: 'Correct Century', checked: false },
+    { value: 'Cosmic Era', checked: false },
+    { value: 'Anno Domini', checked: false },
+    { value: 'Advanced Generation', checked: false },
+    { value: 'Regild Century', checked: false },
+    { value: 'Post Disaster', checked: false },
+    { value: 'Ad Stella', checked: false },
+    { value: 'Present', checked: false },
+  ]
+}
 
-const type =   {
-    id: 'typeId',
-    name: 'Type',
-    options: [
-      { value: 'Gunpla', checked: false },
-      { value: 'Tool', checked: false },
-    ],
+const type = {
+  id: 'typeId',
+  name: 'Type',
+  options: [
+    { value: "All", checked: true },
+    { value: 'Gunpla', checked: false },
+    { value: 'Tool', checked: false },
+  ],
+}
+
+const grade = {
+  id: 'gradeId',
+  name: 'Grade',
+  options: [
+    { value: "All", checked: true },
+    { value: 'SD Super Deformed', checked: false },
+    { value: 'Entry Grade', checked: false },
+    { value: 'High Grade', checked: false },
+    { value: 'Real Grade', checked: false },
+    { value: 'Master Grade', checked: false },
+    { value: 'Full Mechanic', checked: false },
+    { value: 'Perfect Grade', checked: false },
+    { value: 'Metal Build', checked: false },
+    { value: 'Mega Size', checked: false },
+  ],
+}
+const scale =
+{
+  id: 'scaleId',
+  name: 'Scale',
+  options: [
+    { value: "All", checked: true },
+    { value: '1/144', checked: false },
+    { value: '1/100', checked: false },
+    { value: '1/60', checked: false },
+    { value: '1/48', checked: false },
+  ],
+}
+
+// watch(newGrade, (newValue, oldValue) => {
+//   console.log('New Grade value changed:', newValue)
+//   // ทำสิ่งที่ต้องการเมื่อค่า newGrade เปลี่ยนแปลง
+//   productStore.filterProduct(newType, newGrade, newScale, newSerie)
+// })
+
+// watch(newScale, (newValue, oldValue) => {
+//   console.log('New Scale value changed:', newValue)
+//   // ทำสิ่งที่ต้องการเมื่อค่า newScale เปลี่ยนแปลง
+//   productStore.filterProduct(newType, newGrade, newScale, newSerie)
+// })
+
+// watch(newType, (newValue, oldValue) => {
+//   console.log('New Type value changed:', newValue)
+//   // ทำสิ่งที่ต้องการเมื่อค่า newType เปลี่ยนแปลง
+//   productStore.filterProduct(newType, newGrade, newScale, newSerie)
+// })
+
+// watch(newSerie, (newValue, oldValue) => {
+//   console.log('New Serie value changed:', newValue)
+//   // ทำสิ่งที่ต้องการเมื่อค่า newSerie เปลี่ยนแปลง
+//   productStore.filterProduct(newType, newGrade, newScale, newSerie)
+
+// })
+const formatGrade = (grade) => {
+  if (grade) {
+    return grade.split('(')[0].trim()
   }
-
-const grade =  {
-    id: 'gradeId',
-    name: 'Grade',
-    options: [
-      { value: 'SD Super Deformed', checked: false },
-      { value: 'Entry Grade', checked: false },
-      { value: 'High Grade', checked: false },
-      { value: 'Real Grade', checked: false },
-      { value: 'Master Grade', checked: false },
-      { value: 'Full Mechanic', checked: false },
-      { value: 'Perfect Grade', checked: false },
-      { value: 'Metal Build', checked: false },
-      { value: 'Mega Size', checked: false },
-    ],
-  }
-const scale = 
-  {
-    id: 'scaleId',
-    name: 'Scale',
-    options: [
-      { value: '1/144', checked: false },
-      { value: '1/100', checked: false },
-      { value: '1/60', checked: false },
-      { value: '1/48', checked: false },
-    ],
-  }
-
-watch(newGrade, (newValue, oldValue) => {
-  console.log('New Grade value changed:', newValue)
-  // ทำสิ่งที่ต้องการเมื่อค่า newGrade เปลี่ยนแปลง
+  return false
+}
+const selectedGrade = ref("All")
+const selectedScale = ref("All")
+const selectedType = ref("All")
+const selectedSerie = ref("All")
+const filteredProducts = computed(() => {
+  return productStore.products.filter(i => {
+    return (
+      (selectedType.value === "All" || i.type === selectedType.value) &&
+      (selectedGrade.value === "All" || formatGrade(i.grade) === selectedGrade.value) &&
+      (selectedScale.value === "All" || i.scale === selectedScale.value) &&
+      (selectedSerie.value === "All" || i.series === selectedSerie.value)
+    );
+  })
 })
 
-watch(newScale, (newValue, oldValue) => {
-  console.log('New Scale value changed:', newValue)
-  // ทำสิ่งที่ต้องการเมื่อค่า newScale เปลี่ยนแปลง
-})
-
-watch(newType, (newValue, oldValue) => {
-  console.log('New Type value changed:', newValue)
-  // ทำสิ่งที่ต้องการเมื่อค่า newType เปลี่ยนแปลง
-})
-
-watch(newSerie, (newValue, oldValue) => {
-  console.log('New Serie value changed:', newValue)
-  // ทำสิ่งที่ต้องการเมื่อค่า newSerie เปลี่ยนแปลง
-})
 const mobileFiltersOpen = ref(false)
 </script>
