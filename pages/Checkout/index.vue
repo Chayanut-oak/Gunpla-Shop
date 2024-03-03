@@ -8,16 +8,49 @@
 
           <div class="mt-10 flex flex-col space-y-4">
             <div>
-              <p class="text-lg font-['kanit'] text-gray-500">ชื่อผู้รับ</p>
-              <p class="text-base font-['kanit'] text-gray-500">{{ user.name }}</p>
+              <label class="text-lg font-['kanit'] text-gray-500">ชื่อบนบัตร</label>
+              <input id="name" name="name" placeholder="ชื่อบนบัตร" v-model="card.name"
+                class="block w-full rounded font-['kanit'] border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-base text-gray-500 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 " />
+            </div>
+            <div>
+              <label for="card" class="text-lg font-['kanit'] text-gray-500">เลขบัตรเครดิต/เดบิต</label>
+              <input id="card" name="card" placeholder="1234567890123456" v-model="card.number" maxlength="16"
+                class="block w-full rounded font-['kanit'] border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-base text-gray-500 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 " />
+            </div>
 
+            <div>
+              <p class="text-lg font-['kanit']  text-gray-500">วันหมดอายุ</p>
+              <div class="mr-6 flex flex-wrap">
+                <div class="my-1">
+                  <label for="month" class="sr-only">Select expiration month</label>
+                  <select v-model="card.expirationMonth" name="month" id="month"
+                    class="cursor-pointer rounded border-gray-300 bg-gray-50 py-3 px-2 text-sm font-['kanit'] shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500">
+                    <option value="" selected disabled>เดือน</option>
+                    <option v-for="i in 12" :key=i :value=i>{{ i }}</option>
+                  </select>
+                </div>
+                <div class="my-1 ml-3 mr-6">
+                  <label for="year" class="sr-only">Select expiration year</label>
+                  <select v-model="card.expirationYear" name="year" id="year"
+                    class="cursor-pointer rounded border-gray-300 bg-gray-50 py-3 px-2 text-sm font-['kanit'] shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500">
+                    <option value="" selected disabled>ปี</option>
+                    <option v-for="i in 30" :key=i :value="currentYear + i">{{ currentYear + i }}</option>
+                  </select>
+                </div>
+                <div class="relative my-1">
+                  <label for="security-code" class="sr-only">Security code</label>
+                  <input v-model="card.cvc" type="text" id="security-code" name="security-code" maxlength="3"
+                    placeholder="CVC"
+                    class="block w-36 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm font-['kanit'] placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500" />
+                </div>
+              </div>
             </div>
             <div class="relative">
-              <label for="address" class="text-lg font-['kanit'] text-gray-500">ที่อยู่</label>
+
+              <label for="address" class="text-lg font-['kanit'] text-gray-500 mt-5">ที่อยู่</label>
               <textarea id="address" name="address" placeholder="ที่อยู่" v-model="address"
                 class="block w-full rounded font-['kanit'] border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-base text-gray-500 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300" />
             </div>
-
           </div>
 
           <div class="pt-5" v-for="shipping in shippingMethod.option" :key="shipping.name">
@@ -65,12 +98,13 @@
           <div class="my-5 h-0.5 w-full bg-white bg-opacity-30"></div>
           <div class="space-y-2">
             <p class="flex justify-between text-lg font-['kanit'] text-white"><span>ราคารวม:</span><span>{{
-              cartStore.totalPrice }}+{{ selectedShippingMethod.cost }} = {{ (cartStore.totalPrice +
-    selectedShippingMethod.cost).toFixed(2) }} </span></p>
+                cartStore.totalPrice }}+{{ selectedShippingMethod.cost }} = {{ (cartStore.totalPrice +
+                selectedShippingMethod.cost).toFixed(2) }} </span></p>
           </div>
         </div>
         <div class="relative mt-10 text-white">
-
+          {{ card }}
+          <!-- {{ currentYear }} -->
           <!-- <h3 class="mb-5 text-lg font-bold">HERERERERERE {{ address }} {{ selectedShippingMethod }}</h3>
           <p class="text-sm font-semibold">+01 653 235 211 <span class="font-light">(International)</span></p>
           <p class="mt-1 text-sm font-semibold">support@nanohair.com <span class="font-light">(Email)</span></p>
@@ -84,10 +118,11 @@
     </div>
   </div>
 </template>
-  
+
 <script setup>
 import { useCartStore } from '@/stores/cart';
 import { ref } from 'vue';
+const currentYear = new Date().getFullYear() - 1
 const user = {
   name: "Nut Thaiwattananon",
   address: "33 Nakniwat 17"
@@ -111,6 +146,9 @@ const shippingMethod = {
   ]
 }
 const address = ref(user.address)
+const card = ref({
+  name: "", number: "4242424242424242", expirationMonth: "", expirationYear: "", cvc: ""
+})
 const selectedShippingMethod = ref({
   name: "ปกติ",
   duraion: "3-4 วัน",
@@ -124,15 +162,48 @@ const order = {
   cart: cartStore.cart,
   totalPrice: cartStore.totalPrice,
   shippingMethod: selectedShippingMethod.value,
-  address: address.value || "default"
+  address: address.value || user.address
 }
 const submitOrder = async () => {
-  const { data: res, error: error } = await useFetch(`${config.public.baseURL}/gunpla/`, {
-    method: "POST",
-    body: order
-  },)
-  // console.log(res.value)
+  // const { data: res, error: error } = await useFetch(`${config.public.baseURL}/gunpla`, {
+  //   method: "GET",
+  // },)
+  // const newCard = { name: card.value.name, "number": card.value.number, "expirationMonth": card.value.expirationMonth, "expirationYear": card.value.expirationYear, "cvc": card.value.cvc }
+  // console.log(newCard)
+  const res = await $fetch(`${config.public.baseURL}/order/createPaymentToken`, {
+    method: 'POST',
+    body: card.value
+  }).then((res) => {
+    console.log(res)
+  }).catch((err) => {
+    console.log(err)
+  })
+  // const { data: res, error: error } = await useLazyFetch(`${config.public.baseURL}/order/createPaymentToken`, {
+  //   method: "POST",
+  //   body: card
+  // },)
+  // const { data: post, refresh } = await useAsyncData('post', () => $fetch(`${config.public.baseURL}/order/createPaymentToken`) )
 }
 
+// const submitOrder = async () => {
+//   try {
+//     const response = await fetch(`${config.public.baseURL}/order/createPaymentToken`, {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json"
+//       },
+//       body: JSON.stringify(card.value) // Sending the card object as JSON
+//     });
+
+//     if (!response.ok) {
+//       throw new Error('Failed to create payment token');
+//     }
+
+//     console.log(response);
+//     const responseData = await response.json();
+//     console.log(responseData);
+//   } catch (error) {
+//     console.error('Error creating payment token:', error);
+//   }
+// }
 </script>
-  

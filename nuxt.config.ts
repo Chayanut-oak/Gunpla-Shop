@@ -3,11 +3,8 @@ export default {
   devtools: { enabled: true },
   runtimeConfig: {
     public: {
-      baseURL: process.env.BASE_URL || "http://localhost:3000/api",
+      baseURL: process.env.BASE_URL || "http://localhost:8080",
     },
-  },
-  routeRules: {
-    "/api/**": { proxy: { to: "http://localhost:8080/**" } },
   },
   modules: [
     "@nuxtjs/tailwindcss",
