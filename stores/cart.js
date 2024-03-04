@@ -20,8 +20,8 @@ export const useCartStore = defineStore('cart', {
         addProduct(item) {
             
             const productStore = useProductStore();
-            const existingItem = this.cart.find((i) => i.id === item.id);
-            const productInDatabase = productStore.products.find((i) => i.id === item.id);
+            const existingItem = this.cart.find((i) => i.productId === item.productId);
+            const productInDatabase = productStore.products.find((i) => i.productId === item.productId);
             if (existingItem) {
                 if (existingItem.quantity < productInDatabase.stock) {
                     existingItem.quantity++;
@@ -32,20 +32,20 @@ export const useCartStore = defineStore('cart', {
                 this.cart.push({ ...item, quantity: 1 });
             }
         },
-        removeProduct(id) {
-            const index = this.cart.findIndex((item) => item.id === id);
+        removeProduct(productId) {
+            const index = this.cart.findIndex((item) => item.productId === productId);
             if (index !== -1) {
                 this.cart.splice(index, 1);
             }
         },
         reduceProduct(item) {
-            const existingItem = this.cart.find((i) => i.id === item.id);
+            const existingItem = this.cart.find((i) => i.productId === item.productId);
             console.log(existingItem.quantity)
             if (existingItem.quantity >= 2){
                 existingItem.quantity--;
             }
             else {
-                this.removeProduct(existingItem.id);
+                this.removeProduct(existingItem.productId);
             }
         },
         clearCart() {

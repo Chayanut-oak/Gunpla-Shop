@@ -215,7 +215,7 @@
                 class="p-1 flex flex-wrap items-center justify-center my-7 object-cover object-center w-30 h-50 ">
                 <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative m-5"
                   v-for="item in filteredProducts" :key="item.name">
-                  <Nuxt-link :to="`/product/${item.id}`">
+                  <Nuxt-link :to="`/product/${item.productId}`">
                     <div class="background-gold text-center text-gray-900 font-bold font-['kanit'] ">{{ item.name }}</div>
                     <div class="relative ">
                       <img class=" object-cover object-center w-60 h-72 bottom-0 " :src=item.images[0]
@@ -285,6 +285,16 @@ const sortOptions = [
   { name: 'ราคาต่ำสุด', href: '#', current: false },
 ]
 
+
+const type = {
+  id: 'typeId',
+  name: 'Type',
+  options: [
+    { value: "All", checked: true },
+    { value: 'Gunpla', checked: false },
+    { value: 'Tool', checked: false },
+  ],
+}
 const series = {
   id: 'seriesId',
   name: 'Series',
@@ -303,16 +313,6 @@ const series = {
     { value: 'Ad Stella', checked: false },
     { value: 'Present', checked: false },
   ]
-}
-
-const type = {
-  id: 'typeId',
-  name: 'Type',
-  options: [
-    { value: "All", checked: true },
-    { value: 'Gunpla', checked: false },
-    { value: 'Tool', checked: false },
-  ],
 }
 
 const grade = {

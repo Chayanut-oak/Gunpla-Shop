@@ -144,7 +144,7 @@
 
                               </div>
                               <button @click="cartStore.removeProduct(item.id)" type="button"
-                                  class="font-['kanit'] text-white hover:bg-red-600 bg-red-500 p-1">ลบ</button>
+                                  class="font-['kanit'] text-white hover:bg-red-600 bg-red-500 p-1"><TrashIcon  class="h-6 w-6 text-gray-800" aria-hidden="true" /></button>
                             </div>
                           </li>
                         </ul>
@@ -154,7 +154,7 @@
                     </div>
                   </div>
 
-                  <div class="border-t border-gray-200 px-4 py-6 sm:px-6 background-gold">
+                  <div class="border-t border-gray-200 px-4 py-6 sm:px-6 ">
                     <div class="flex justify-between text-base font-['kanit'] text-gray-900">
                       <p>ราคารวม</p>
                       <p>{{ cartStore.totalPrice }} บาท</p>
@@ -182,7 +182,7 @@
 <script setup>
 import { useCartStore } from '@/stores/cart';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems, Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, MinusIcon, ShoppingCartIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { Bars3Icon, BellIcon, MinusIcon, ShoppingCartIcon, XMarkIcon, TrashIcon } from '@heroicons/vue/24/outline'
 import { ref, computed } from 'vue'
 // import { useRoute } from 'vue-router';
 // const { data : products } = await useFetch('http:localhost:8080/fetchProduct')

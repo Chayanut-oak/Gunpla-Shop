@@ -108,7 +108,7 @@ import 'vue3-carousel/dist/carousel.css'
 const route = useRoute()
 const productStore = useProductStore()
 console.log("From product id: ", productStore.products)
-const product = productStore.products.find((item) => item.id == route.params.productId)
+const product = productStore.products.find((item) => item.productId == route.params.productId)
 const currentSlide = ref(0)
 const quantity = ref(1)
 function decrementQuantity() {
