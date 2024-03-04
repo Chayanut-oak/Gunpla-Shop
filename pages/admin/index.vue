@@ -29,58 +29,21 @@
                             <UserGroupIcon class="h-6 w-6" aria-hidden="true" />
                             <span class="mx-2 text-sm font-['kanit'] font-medium">รายชื้อผู้ใช้</span>
                         </div>
+                        <div
+                            class="flex items-center px-3 py-2 text-gray-600 font-['kanit'] transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
+                            <a href="https://dashboard.omise.co/v2/dashboard" target="_blank"
+                                class="mx-2 text-sm font-['kanit'] font-medium">Opn Payments</a>
+                        </div>
                     </div>
                 </nav>
             </div>
         </aside>
         <div class="h-screen min-h-screen overflow-y-auto ">
-            <table v-if="selectedSide == 'productList'">
-                <thead>
-                    <tr class="sticky top-0 bg-white">
-                        <th class="font-['kanit'] border px-4 py-2">Product ID</th>
-                        <th class="font-['kanit'] border px-4 py-2">รูป</th>
-                        <th class="font-['kanit'] border px-4 py-2">ชื่อสินค้า</th>
-                        <th class="font-['kanit'] border px-4 py-2">รายละเอียดสินค้า</th>
-                        <th class="font-['kanit'] border px-4 py-2">ประเภท</th>
-                        <th class="font-['kanit'] border px-4 py-2">ยี่ห้อ</th>
-                        <th class="font-['kanit'] border px-4 py-2">ซีรี่ย์</th>
-                        <th class="font-['kanit'] border px-4 py-2">ขนาด</th>
-                        <th class="font-['kanit'] border px-4 py-2">เกรด</th>
-                        <th class="font-['kanit'] border px-4 py-2">ราคา</th>
-                        <th class="font-['kanit'] border px-4 py-2">คงเหลือ</th>
-                        <th class="font-['kanit'] border px-4 py-2">แก้ไข</th>
-                        <th class="font-['kanit'] border px-4 py-2">ลบ</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in productStore.products" :key="item.productId">
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.productId }}</td>
-                        <td class="font-['kanit'] border px-4 py-2"><img :src="item.images[0]" alt=""
-                                class="h-16 w-16 object-cover">
-                        </td>
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.name }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.description }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.type }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.brand }}</td>
-
-                        <template v-if="item.type = 'Gunpla'">
-                            <td class="font-['kanit'] border px-4 py-2">{{ item.series }}</td>
-                            <td class="font-['kanit'] border px-4 py-2">{{ item.scale }}</td>
-                            <td class="font-['kanit'] border px-4 py-2">{{ item.grade }}</td>
-                        </template>
-
-
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.price }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.stock }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">
-                            <PencilSquareIcon class="h-6 w-6" aria-hidden="true" />
-                        </td>
-                        <td class="font-['kanit'] border px-4 py-2">
-                            <TrashIcon class="h-6 w-6" aria-hidden="true" />
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+            <div v-if="selectedSide == ''">
+                <p class="m-10 text-gray-600 font-['kanit'] text-5xl">
+                    Hello!!! Welcome to Admin Page
+                </p>
+            </div>
             <div v-if="selectedSide == 'addProduct'">
                 <div class="m-10 flex flex-col space-y-4">
                     <div>
@@ -160,8 +123,61 @@
                     </div>
 
                 </div>
-                {{ newProduct }}
+                <div class="mr-5">
+                    <button @click="addProduct()"
+                        class="mt-4 inline-flex w-full items-center justify-center rounded bg-[#2c52b3] py-2.5 px-4 text-base font-semibold font-['kanit'] tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg">เพิ่มสินค้า</button>
+                </div>
+                <!-- {{ newProduct }} -->
+                {{ newProduct.images }}
+                <img src="http://localhost:4566/don-gunpla-store/1c7cd683-77e0-4f20-ae3f-3859e40ab63f.png">
             </div>
+            <table v-if="selectedSide == 'productList'">
+                <thead>
+                    <tr class="sticky top-0 bg-white">
+                        <th class="font-['kanit'] border px-4 py-2">Product ID</th>
+                        <th class="font-['kanit'] border px-4 py-2">รูป</th>
+                        <th class="font-['kanit'] border px-4 py-2">ชื่อสินค้า</th>
+                        <th class="font-['kanit'] border px-4 py-2">รายละเอียดสินค้า</th>
+                        <th class="font-['kanit'] border px-4 py-2">ประเภท</th>
+                        <th class="font-['kanit'] border px-4 py-2">ยี่ห้อ</th>
+                        <th class="font-['kanit'] border px-4 py-2">ซีรี่ย์</th>
+                        <th class="font-['kanit'] border px-4 py-2">ขนาด</th>
+                        <th class="font-['kanit'] border px-4 py-2">เกรด</th>
+                        <th class="font-['kanit'] border px-4 py-2">ราคา</th>
+                        <th class="font-['kanit'] border px-4 py-2">คงเหลือ</th>
+                        <th class="font-['kanit'] border px-4 py-2">แก้ไข</th>
+                        <th class="font-['kanit'] border px-4 py-2">ลบ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in productStore.products" :key="item.productId">
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.productId }}</td>
+                        <td class="font-['kanit'] border px-4 py-2"><img :src="item.images[0]" alt=""
+                                class="h-16 w-16 object-cover">
+                        </td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.name }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.description }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.type }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.brand }}</td>
+
+                        <template v-if="item.type = 'Gunpla'">
+                            <td class="font-['kanit'] border px-4 py-2">{{ item.series }}</td>
+                            <td class="font-['kanit'] border px-4 py-2">{{ item.scale }}</td>
+                            <td class="font-['kanit'] border px-4 py-2">{{ item.grade }}</td>
+                        </template>
+
+
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.price }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.stock }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">
+                            <PencilSquareIcon class="h-6 w-6" aria-hidden="true" />
+                        </td>
+                        <td class="font-['kanit'] border px-4 py-2">
+                            <TrashIcon class="h-6 w-6" aria-hidden="true" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
             <table v-if="selectedSide == 'orderList'">
                 <thead>
@@ -234,27 +250,54 @@ import { useProductStore } from '@/stores/product';
 import { TrashIcon, PencilSquareIcon, ListBulletIcon, PlusCircleIcon, UserGroupIcon, TruckIcon } from '@heroicons/vue/24/outline'
 
 const productStore = useProductStore()
-const selectedSide = ref(null)
-
-
+const selectedSide = ref("")
+const newProduct = ref({
+    name: "",
+    description: "",
+    type: "",
+    brand: "",
+    series: "",
+    scale: "",
+    grade: "",
+    price: null,
+    stock: null,
+    images: []
+})
+// const images = ref([])
+const formData = new FormData();
 const onFileChange = (event) => {
+
     const files = event.target.files;
-    // Clear existing images before adding new ones
-    newProduct.value.images = [];
     for (let i = 0; i < files.length; i++) {
-        const file = files[i];
-        // Read the file as a data URL
-        const reader = new FileReader();
-        reader.onload = (e) => {
-            // Push the data URL to the images array
-            newProduct.value.images.push(e.target.result);
-        };
-        // Read the file
-        reader.readAsDataURL(file);
+        formData.append('files', files[i]);
     }
+    // const files = event.target.files;
+    // // Clear existing images before adding new ones
+    // newProduct.value.images = [];
+    // for (let i = 0; i < files.length; i++) {
+    //     const file = files[i];
+    //     // Read the file as a data URL
+    //     const reader = new FileReader();
+    //     reader.onload = (e) => {
+    //         // Push the data URL to the images array
+    //         newProduct.value.images.push(e.target.result);
+    //     };
+    //     // Read the file
+    //     reader.readAsDataURL(file);
+    // }
 }
 
-
+const addProduct = async () => {
+    console.log(formData)
+    const res = await $fetch("http://localhost:8080/api/upload-image", {
+        body: formData,
+        header: {
+            'Content-Type': 'multipart/form-data'
+        },
+        method:"POST"
+    }).then(res=>console.log("res",res)).catch(err=>console.log("err",err))
+    // console.log(res)
+}
 const series = {
     id: 'seriesId',
     name: 'Series',
@@ -302,16 +345,5 @@ const scale =
         { value: '1/48', checked: false },
     ],
 }
-const newProduct = ref({
-    name: "",
-    description: "",
-    type: "",
-    brand: "",
-    series: "",
-    scale: "",
-    grade: "",
-    price: null,
-    stock: null,
-    images: []
-})
+
 </script>
