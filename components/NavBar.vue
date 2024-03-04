@@ -21,8 +21,8 @@
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
               <NuxtLink v-for="item in navigation" :key="item.name" :to="item.linkTo"
-                :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base', 'font-kanit']"
-                >{{ item.name }}</NuxtLink>
+                :class="[item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white', 'block rounded-md px-3 py-2 text-base', 'font-kanit']">
+                {{ item.name }}</NuxtLink>
             </div>
           </div>
         </div>
@@ -128,31 +128,41 @@
                                 </div>
                               </div>
                               <div class="flex flex-1 items-end justify-between text-sm">
-                                <p class="font-['kanit'] text-gray-500">จำนวน {{ item.quantity }} x {{ item.price }} = {{
-                                  item.quantity * item.price }} บาท</p>
+                                <p class="font-['kanit'] text-gray-500">จำนวน {{ item.quantity }} x {{ item.price }} =
+                                  {{
+    item.quantity * item.price }} บาท</p>
 
-                                <div class="flex">
-                                  <button @click="cartStore.removeProduct(item.id)" type="button"
-                                    class="font-['kanit'] text-indigo-600 hover:text-indigo-500">ลบ</button>
-                                </div>
                               </div>
                             </div>
+                            <div class="ml-2 flex justify-between">
 
+                              <div class="flex-col flex mx-3">
+                                <button @click="cartStore.addProduct(item)" type="button"
+                                class="font-['kanit'] text-sky-900 hover:text-sky-950  flex-1 p-1 text-3xl" >+</button>
+                                <button @click="cartStore.reduceProduct(item, item.id)" type="button"
+                                  class="font-['kanit'] text-sky-900 hover:text-sky-950  flex-1 p-1 text-3xl">-</button>
+
+                              </div>
+                              <button @click="cartStore.removeProduct(item.id)" type="button"
+                                  class="font-['kanit'] text-white hover:bg-red-600 bg-red-500 p-1">ลบ</button>
+                            </div>
                           </li>
                         </ul>
+
                       </div>
+
                     </div>
                   </div>
 
-                  <div class="border-t border-gray-200 px-4 py-6 sm:px-6 ">
+                  <div class="border-t border-gray-200 px-4 py-6 sm:px-6 background-gold">
                     <div class="flex justify-between text-base font-['kanit'] text-gray-900">
                       <p>ราคารวม</p>
                       <p>{{ cartStore.totalPrice }} บาท</p>
                     </div>
-                    <div class="mt-6">
+                    <div class="mt-6 b">
                       <NuxtLink to="/checkout" @click="openCart = false">
                         <a href="#"
-                          class="flex items-center justify-center rounded-md border-2 border-cyan-500   bg-[#2c52b3] px-6 py-3 text-base font-['kanit'] text-white shadow-sm hover:bg-[#1d387c]">
+                          class="flex items-center justify-center rounded-md border-2 border-cyan-500  bg-sky-900 hover:bg-sky-950 px-6 py-3 text-base font-['kanit'] text-white shadow-sm ">
                           ชำระเงิน
                         </a>
                       </NuxtLink>
@@ -172,7 +182,7 @@
 <script setup>
 import { useCartStore } from '@/stores/cart';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems, Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, ShoppingCartIcon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { Bars3Icon, BellIcon, MinusIcon, ShoppingCartIcon, XMarkIcon } from '@heroicons/vue/24/outline'
 import { ref, computed } from 'vue'
 // import { useRoute } from 'vue-router';
 // const { data : products } = await useFetch('http:localhost:8080/fetchProduct')
@@ -182,8 +192,8 @@ const cartStore = useCartStore()
 const openCart = ref(false)
 
 const navigation = [
-  { name: 'หน้าหลัก',linkTo: "/", current:false },
-  { name: 'สินค้าทั้งหมด',linkTo: "/category/products", current:false },
+  { name: 'หน้าหลัก', linkTo: "/", current: false },
+  { name: 'สินค้าทั้งหมด', linkTo: "/category/products", current: false },
 
 ]
 </script>

@@ -38,6 +38,16 @@ export const useCartStore = defineStore('cart', {
                 this.cart.splice(index, 1);
             }
         },
+        reduceProduct(item) {
+            const existingItem = this.cart.find((i) => i.id === item.id);
+            console.log(existingItem.quantity)
+            if (existingItem.quantity >= 2){
+                existingItem.quantity--;
+            }
+            else {
+                this.removeProduct(existingItem.id);
+            }
+        },
         clearCart() {
             this.cart = [];
         },
