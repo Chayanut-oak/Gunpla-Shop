@@ -53,11 +53,10 @@
               <MenuItems
                 class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <MenuItem v-slot="{ active }">
-                <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Your
-                  Profile</a>
-                </MenuItem>
-                <MenuItem v-slot="{ active }">
-                <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Settings</a>
+                <Nuxt-link to="/profile">
+                  <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Your
+                    Profile</a>
+                </Nuxt-link>
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
                 <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
@@ -138,13 +137,15 @@
 
                               <div class="flex-col flex mx-3">
                                 <button @click="cartStore.addProduct(item)" type="button"
-                                class="font-['kanit'] text-sky-900 hover:text-sky-950  flex-1 p-1 text-3xl" >+</button>
+                                  class="font-['kanit'] text-sky-900 hover:text-sky-950  flex-1 p-1 text-3xl">+</button>
                                 <button @click="cartStore.reduceProduct(item, item.id)" type="button"
                                   class="font-['kanit'] text-sky-900 hover:text-sky-950  flex-1 p-1 text-3xl">-</button>
 
                               </div>
                               <button @click="cartStore.removeProduct(item.id)" type="button"
-                                  class="font-['kanit'] text-white hover:bg-red-600 bg-red-500 p-1"><TrashIcon  class="h-6 w-6 text-gray-800" aria-hidden="true" /></button>
+                                class="font-['kanit'] text-white hover:bg-red-600 bg-red-500 p-1">
+                                <TrashIcon class="h-6 w-6 text-gray-800" aria-hidden="true" />
+                              </button>
                             </div>
                           </li>
                         </ul>
@@ -193,7 +194,7 @@ const openCart = ref(false)
 
 const navigation = [
   { name: 'หน้าหลัก', linkTo: "/", current: false },
-  { name: 'สินค้าทั้งหมด', linkTo: "/category/products", current: false },
+  { name: 'สินค้าทั้งหมด', linkTo: "/all-products", current: false },
 
 ]
 </script>

@@ -162,12 +162,68 @@
                 </div>
                 {{ newProduct }}
             </div>
-            <div v-if="selectedSide == 'orderList'">
-                Order List
-            </div>
-            <div v-if="selectedSide == 'userList'">
-                User List
-            </div>
+
+            <table v-if="selectedSide == 'orderList'">
+                <thead>
+                    <tr class="sticky top-0 bg-white">
+                        <th class="font-['kanit'] border px-4 py-2">Order Id</th>
+                        <th class="font-['kanit'] border px-4 py-2">User Id</th>
+                        <th class="font-['kanit'] border px-4 py-2">รายการสินค้า</th>
+                        <th class="font-['kanit'] border px-4 py-2">ราคารวม</th>
+                        <th class="font-['kanit'] border px-4 py-2">สถานะ</th>
+                        <th class="font-['kanit'] border px-4 py-2">ประเภทการจัดส่ง</th>
+                        <th class="font-['kanit'] border px-4 py-2">วันที่สั่งซื้อ</th>
+                        <th class="font-['kanit'] border px-4 py-2">ที่อยู่</th>
+                        <th class="font-['kanit'] border px-4 py-2">แก้ไข</th>
+                        <th class="font-['kanit'] border px-4 py-2">ลบ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr v-for="item in productStore.products" :key="item.productId">
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.orderId }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.userId }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.cart }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.totalPrice }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.status }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.shippingMethod }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.orderDate }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.address }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">
+                            <PencilSquareIcon class="h-6 w-6" aria-hidden="true" />
+                        </td>
+                        <td class="font-['kanit'] border px-4 py-2">
+                            <TrashIcon class="h-6 w-6" aria-hidden="true" />
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
+            <table v-if="selectedSide == 'userList'">
+                <thead>
+                    <tr class="sticky top-0 bg-white">
+                        <th class="font-['kanit'] border px-4 py-2">User Id</th>
+                        <th class="font-['kanit'] border px-4 py-2">รป</th>
+                        <th class="font-['kanit'] border px-4 py-2">ชื่อจริง</th>
+                        <th class="font-['kanit'] border px-4 py-2">อีเมล</th>
+                        <th class="font-['kanit'] border px-4 py-2">ที่อยู่</th>
+                        <th class="font-['kanit'] border px-4 py-2">เบอร์โทรศัพท์</th>
+                        <th class="font-['kanit'] border px-4 py-2">ลบ</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- <tr v-for="item in productStore.products" :key="item.productId">
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.userId }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.image }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.fullname }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.email }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.address }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.phoneNumebr }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.shippingMethod }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">
+                            <TrashIcon class="h-6 w-6" aria-hidden="true" />
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table>
         </div>
 
     </div>
@@ -180,7 +236,6 @@ import { TrashIcon, PencilSquareIcon, ListBulletIcon, PlusCircleIcon, UserGroupI
 const productStore = useProductStore()
 const selectedSide = ref(null)
 
-const selectedFiles = ref([]);
 
 const onFileChange = (event) => {
     const files = event.target.files;
