@@ -1,8 +1,3 @@
-<script setup>
-definePageMeta({
-  layout: "loginlayout"
-});
-</script>
 <template>
   <div class="bg-black flex justify-center items-center h-screen">
 
@@ -14,18 +9,18 @@ definePageMeta({
     <!-- Right: Login Form -->
     <div class="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
       <h1 class="text-2xl font-semibold mb-4">Login</h1>
-      <form action="#" method="POST">
+      <form @submit.prevent="login">
         <!-- Username Input -->
         <div class="mb-4">
           <label for="username" class="block text-white mb-2">Username</label>
-          <input type="text" id="username" name="username"
+          <input type="text" id="username" v-model="username" name="username"
             class="text-white w-full border blue-neon rounded-md py-2 px-3 focus:outline-none bg-transparent"
             autocomplete="off">
         </div>
         <!-- Password Input -->
         <div class="mb-4">
           <label for="password" class="block text-white mb-2">Password</label>
-          <input type="password" id="password" name="password"
+          <input type="password" id="password" v-model="password" name="password"
             class="text-white w-full border blue-neon rounded-md py-2 px-3 focus:outline-none bg-transparent"
             autocomplete="off">
         </div>
@@ -41,15 +36,34 @@ definePageMeta({
         <!-- Login Button -->
         <button type="submit"
           class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full">Login</button>
-
       </form>
       <!-- Sign up  Link -->
       <nuxt-link to="/register">
         <div class="mt-6 text-blue-500 text-center">
           <a href="#" class="hover:underline">Sign up Here</a>
-      </div>
-    </nuxt-link>
-
+        </div>
+      </nuxt-link>
+    </div>
   </div>
-</div></template>
-  
+</template>
+
+<script setup>
+definePageMeta({
+  layout: "loginlayout"
+});
+import { useUserStore } from '~/stores/user';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const user = useUserStore()
+const username = ref('');
+const password = ref('');
+const router = useRouter();
+const login = async () => {
+  try {
+    await user.login(username.value, password.value);
+    router.push('/'); 
+  } catch (error) {
+    console.error('Error logging in:', error);
+  }
+};
+</script>

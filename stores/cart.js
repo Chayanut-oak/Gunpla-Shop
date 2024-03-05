@@ -18,7 +18,6 @@ export const useCartStore = defineStore('cart', {
     },
     actions: {
         addProduct(item) {
-            
             const productStore = useProductStore();
             const existingItem = this.cart.find((i) => i.productId === item.productId);
             const productInDatabase = productStore.products.find((i) => i.productId === item.productId);
