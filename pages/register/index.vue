@@ -63,8 +63,8 @@ const register = async () => {
   try {
     if (password.value == confirmPassword.value) {
       await user.register(email.value, password.value);
+      router.push('/');
     }
-    router.push('/');
   } catch (error) {
     console.error('Error logging in:', error);
   }

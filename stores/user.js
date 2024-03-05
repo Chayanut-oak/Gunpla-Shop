@@ -27,14 +27,7 @@ export const useUserStore = defineStore('user', {
                     },
                     body: JSON.stringify(requestBody)
                 });
-                  console.log(response.json())
-                if (!response.ok) {
-                    throw new Error('Failed to login');
-                }   
-               
-                const data = await response.json(); 
-           
-                this.token = data;
+                this.token = response;
             } catch (error) {
                 console.error('Error logging in:', error);
                 throw error;
@@ -54,11 +47,7 @@ export const useUserStore = defineStore('user', {
                     },
                     body: JSON.stringify(requestBody)
                 });
-                if (!response.ok) {
-                    throw new Error('Failed to login');
-                }
-                const data = await response.json();
-                this.token = data;
+                this.token = response;
             } catch (error) {
                 console.error('Error logging in:', error);
                 throw error;
