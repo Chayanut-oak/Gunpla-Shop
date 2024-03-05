@@ -59,7 +59,7 @@
                 </Nuxt-link>
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
-                <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
+                <a @click="userStore.signout()" href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
                 </MenuItem>
               </MenuItems>
 
@@ -185,10 +185,12 @@ import { useCartStore } from '@/stores/cart';
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems, Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, MinusIcon, ShoppingCartIcon, XMarkIcon, TrashIcon } from '@heroicons/vue/24/outline'
 import { ref, computed } from 'vue'
+import { useUserStore } from '@/stores/user';
 // import { useRoute } from 'vue-router';
 // const { data : products } = await useFetch('http:localhost:8080/fetchProduct')
 // console.log(products.value)
 const route = useRoute();
+const userStore = useUserStore()
 const cartStore = useCartStore()
 const openCart = ref(false)
 

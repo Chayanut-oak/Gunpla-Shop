@@ -44,7 +44,7 @@
                     Hello!!! Welcome to Admin Page
                 </p>
             </div>
-            <div v-if="selectedSide == 'addProduct'">
+            <div v-if="selectedSide == 'addProduct'" class="flex">
                 <div class="m-10 flex flex-col space-y-4">
                     <div>
                         <label class="text-lg font-['kanit'] text-gray-500">ชื่อสินค้า</label>
@@ -114,22 +114,26 @@
                             <input id="stock" name="stock" type="number" placeholder="25" v-model="newProduct.stock"
                                 class="block w-32 rounded font-['kanit'] border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-base text-gray-500 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 " />
                         </div>
-                        <div class="mr-6 flex flex-col">
-                            <label for="images" class="text-lg font-['kanit'] text-gray-500">Upload Images</label>
+                        <div class="mr-5">
+                            <label for="images" class="text-lg font-['kanit'] text-gray-500">เพิ่มรูปภาพ</label>
                             <input id="images" name="images" type="file" accept="image/*" multiple
                                 @change="onFileChange"
                                 class="block w-full rounded font-['kanit'] border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-base text-gray-500 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300" />
                         </div>
                     </div>
 
+                    <div class="mr-5">
+                        <button @click="addProduct()"
+                            class="mt-4 inline-flex w-full items-center justify-center rounded bg-[#2c52b3] py-2.5 px-4 text-base font-semibold font-['kanit'] tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg">เพิ่มสินค้า</button>
+                    </div>
                 </div>
-                <div class="mr-5">
-                    <button @click="addProduct()"
-                        class="mt-4 inline-flex w-full items-center justify-center rounded bg-[#2c52b3] py-2.5 px-4 text-base font-semibold font-['kanit'] tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg">เพิ่มสินค้า</button>
-                </div>
+                <!-- <div class=" m-10 flex flex-col space-y-4 ">
+                    <img class="h-36 w-36" v-for="image in newProduct.images" :key="image" :src="image">
+
+                </div> -->
+                <!-- <img src="http://localhost:4566/don-gunpla-store/71bfbcea-fe93-443b-8c2d-df62cb11bca3.png"> -->
                 <!-- {{ newProduct }} -->
-                {{ newProduct.images }}
-                <img src="http://localhost:4566/don-gunpla-store/1c7cd683-77e0-4f20-ae3f-3859e40ab63f.png">
+
             </div>
             <table v-if="selectedSide == 'productList'">
                 <thead>
@@ -216,15 +220,14 @@
             <table v-if="selectedSide == 'userList'">
                 <thead>
                     <tr class="sticky top-0 bg-white">
-                        <th class="font-['kanit'] border px-4 py-2">User Id</th>
-                        <th class="font-['kanit'] border px-4 py-2">รป</th>
+                        <th class="font-['kanit'] border px-4 py-2">รูป</th>
                         <th class="font-['kanit'] border px-4 py-2">ชื่อจริง</th>
                         <th class="font-['kanit'] border px-4 py-2">อีเมล</th>
                         <th class="font-['kanit'] border px-4 py-2">ที่อยู่</th>
                         <th class="font-['kanit'] border px-4 py-2">เบอร์โทรศัพท์</th>
                         <th class="font-['kanit'] border px-4 py-2">ลบ</th>
                     </tr>
-                </thead>
+                </thead>    
                 <tbody>
                     <!-- <tr v-for="item in productStore.products" :key="item.productId">
                         <td class="font-['kanit'] border px-4 py-2">{{ item.userId }}</td>
@@ -248,6 +251,8 @@
 <script setup>
 import { useProductStore } from '@/stores/product';
 import { TrashIcon, PencilSquareIcon, ListBulletIcon, PlusCircleIcon, UserGroupIcon, TruckIcon } from '@heroicons/vue/24/outline'
+const { $api } = useNuxtApp()
+const config = useRuntimeConfig()
 
 const productStore = useProductStore()
 const selectedSide = ref("")
@@ -264,9 +269,10 @@ const newProduct = ref({
     images: []
 })
 // const images = ref([])
-const formData = new FormData();
+var formData = new FormData();
 const onFileChange = (event) => {
-
+    formData = new FormData();
+    // console.log(event.target.files)
     const files = event.target.files;
     for (let i = 0; i < files.length; i++) {
         formData.append('files', files[i]);
@@ -288,15 +294,49 @@ const onFileChange = (event) => {
 }
 
 const addProduct = async () => {
-    console.log(formData)
-    const res = await $fetch("http://localhost:8080/api/upload-image", {
-        body: formData,
-        header: {
-            'Content-Type': 'multipart/form-data'
-        },
-        method:"POST"
-    }).then(res=>console.log("res",res)).catch(err=>console.log("err",err))
-    // console.log(res)
+    try {
+        const res = await $fetch(`${config.public.baseURL}/s3/upload-image`, {
+            body: formData,
+            header: {
+                'Content-Type': 'multipart/form-data'
+            },
+            method: "POST"
+        })
+        console.log(res)
+        newProduct.value.images = res.imageUrls
+
+        if (newProduct.value.type == "Gunpla") {
+            await $api("/gunpla/addGunpla", {
+                body: newProduct.value,
+                method: "POST"
+            }).then(res => console.log(res)).catch(err => console.log(err))
+        }
+        else if (newProduct.value.type == "Tool") {
+            await $api("/tool/addTool", {
+                body: newProduct.value,
+                method: "POST"
+            }).then(res => console.log(res)).catch(err => console.log(err))
+        }
+        formData = new FormData();
+        newProduct.value = {
+            name: "",
+            description: "",
+            type: "",
+            brand: "",
+            series: "",
+            scale: "",
+            grade: "",
+            price: null,
+            stock: null,
+            images: []
+        }
+        document.getElementById('images').value = null;
+    }
+    catch (err) {
+        alert((err))
+    }
+
+
 }
 const series = {
     id: 'seriesId',

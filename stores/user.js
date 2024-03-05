@@ -3,7 +3,7 @@ import { defineStore } from "pinia";
 export const useUserStore = defineStore('user', {
     state: () => ({
         token: "",
-
+        user: {}
     }),
     getters: {
 
@@ -22,10 +22,7 @@ export const useUserStore = defineStore('user', {
                 };
                 const response = await $api('/user/authentication', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(requestBody)
+                    body: requestBody
                 });
                 this.token = response;
             } catch (error) {
@@ -52,6 +49,11 @@ export const useUserStore = defineStore('user', {
                 console.error('Error logging in:', error);
                 throw error;
             }
+        },
+        async signout() {
+
+            this.token = "",
+                this.user = {}
         }
     }
 
