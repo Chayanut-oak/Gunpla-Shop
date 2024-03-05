@@ -13,14 +13,14 @@
         <!-- Username Input -->
         <div class="mb-4">
           <label for="username" class="block text-white mb-2">Username</label>
-          <input type="text" id="username" v-model="username" name="username"
+          <input type="text" id="username" v-model="username" name="username" required
             class="text-white w-full border blue-neon rounded-md py-2 px-3 focus:outline-none bg-transparent"
             autocomplete="off">
         </div>
         <!-- Password Input -->
         <div class="mb-4">
           <label for="password" class="block text-white mb-2">Password</label>
-          <input type="password" id="password" v-model="password" name="password"
+          <input type="password" id="password" v-model="password" name="password" required
             class="text-white w-full border blue-neon rounded-md py-2 px-3 focus:outline-none bg-transparent"
             autocomplete="off">
         </div>

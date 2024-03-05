@@ -13,21 +13,21 @@
         <!-- Email Input -->
         <div class="mb-4">
           <label for="email" class="block text-white mb-2">Email</label>
-          <input type="text" id="email" v-model="email" name="email"
+          <input type="text" id="email" v-model="email" name="email" required
             class="text-white w-full border blue-neon rounded-md py-2 px-3 focus:outline-none bg-transparent"
             autocomplete="off">
         </div>
         <!-- Password Input -->
         <div class="mb-4">
           <label for="password" class="block text-white mb-2">Password</label>
-          <input type="password" id="password" v-model="password" name="password"
+          <input type="password" id="password" v-model="password" name="password" required
             class="text-white w-full border blue-neon rounded-md py-2 px-3 focus:outline-none bg-transparent"
             autocomplete="off">
         </div>
         <!-- Confirm Password Input -->
         <div class="mb-4">
           <label for="confirmPassword" class="block text-white mb-2">Confirm Password</label>
-          <input type="password" id="confirmPassword" v-model="confirmPassword" name="confirmPassword"
+          <input type="password" id="confirmPassword" v-model="confirmPassword" name="confirmPassword"required
             class="text-white w-full border blue-neon rounded-md py-2 px-3 focus:outline-none bg-transparent"
             autocomplete="off">
         </div>

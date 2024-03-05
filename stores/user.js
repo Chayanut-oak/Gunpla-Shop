@@ -24,7 +24,10 @@ export const useUserStore = defineStore('user', {
                     method: 'POST',
                     body: requestBody
                 });
-                this.token = response;
+                console.log(response.token)
+                this.token = response.token;
+                this.user = response.user
+                
             } catch (error) {
                 console.error('Error logging in:', error);
                 throw error;
@@ -44,7 +47,7 @@ export const useUserStore = defineStore('user', {
                     },
                     body: JSON.stringify(requestBody)
                 });
-                this.token = response;
+                this.token = response.token;
             } catch (error) {
                 console.error('Error logging in:', error);
                 throw error;
