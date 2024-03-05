@@ -38,7 +38,7 @@
                   </select>
                 </div>
                 <div class="relative my-1">
-                  <label for="security-code" class="sr-only">Security code</label>
+                  <label for="security-code" class="sr-only">CVC</label>
                   <input v-model="card.cvc" type="text" id="security-code" name="security-code" maxlength="3"
                     placeholder="CVC"
                     class="block w-36 rounded border-gray-300 bg-gray-50 py-3 px-4 text-sm font-['kanit'] placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-teal-500" />
@@ -48,7 +48,7 @@
             <div class="relative">
 
               <label for="address" class="text-lg font-['kanit'] text-gray-500 mt-5">ที่อยู่</label>
-              <textarea id="address" name="address" placeholder="ที่อยู่" v-model="address"
+              <textarea id="address" name="address" placeholder="ที่อยู่" v-model="order.address" 
                 class="block w-full rounded font-['kanit'] border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-base text-gray-500 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300" />
             </div>
           </div>
@@ -103,7 +103,7 @@
           </div>
         </div>
         <div class="relative mt-10 text-white">
-          {{ card }}
+          {{ order }}
           <!-- {{ currentYear }} -->
           <!-- <h3 class="mb-5 text-lg font-bold">HERERERERERE {{ address }} {{ selectedShippingMethod }}</h3>
           <p class="text-sm font-semibold">+01 653 235 211 <span class="font-light">(International)</span></p>
@@ -120,13 +120,12 @@
 </template>
 
 <script setup>
-import { useCartStore } from '@/stores/cart';
+import { useCartStore } from '@/stores/cart'
 import { ref } from 'vue';
+import { useUserStore } from '@/stores/user';
+const { $api } = useNuxtApp()
 const currentYear = new Date().getFullYear() - 1
-const user = {
-  name: "Nut Thaiwattananon",
-  address: "33 Nakniwat 17"
-}
+const userStore = useUserStore()
 const shippingMethod = {
   id: "shippingId",
   name: "shippingMethod",
@@ -145,39 +144,52 @@ const shippingMethod = {
     }
   ]
 }
-const address = ref(user.address)
-const card = ref({
-  name: "", number: "4242424242424242", expirationMonth: "", expirationYear: "", cvc: ""
-})
 const selectedShippingMethod = ref({
   name: "ปกติ",
   duraion: "3-4 วัน",
   cost: 45,
   checked: true
 })
+
+const card = ref({
+  name: userStore.user.name, number: "4242424242424242", expirationMonth: "", expirationYear: "", cvc: ""
+})
+
 const cartStore = useCartStore()
 const config = useRuntimeConfig()
-const order = {
-  userId: "test",
+const order = ref({
+  email: userStore.user.email,
   cart: cartStore.cart,
-  totalPrice: cartStore.totalPrice,
-  shippingMethod: selectedShippingMethod.value,
-  address: address.value || user.address
-}
+  totalPrice: cartStore.totalPrice + selectedShippingMethod.value.cost,
+  shippingMethod: selectedShippingMethod.value.name,
+  address: userStore.user.address,
+  token: ""
+})
 const submitOrder = async () => {
   // const { data: res, error: error } = await useFetch(`${config.public.baseURL}/gunpla`, {
   //   method: "GET",
   // },)
   // const newCard = { name: card.value.name, "number": card.value.number, "expirationMonth": card.value.expirationMonth, "expirationYear": card.value.expirationYear, "cvc": card.value.cvc }
   // console.log(newCard)
-  const res = await $fetch(`${config.public.baseURL}/order/createPaymentToken`, {
-    method: 'POST',
-    body: card.value
-  }).then((res) => {
+  try {
+    const res = await $api(`/order/createPaymentToken`, {
+      method: 'POST',
+      body: card.value
+    })
     console.log(res)
-  }).catch((err) => {
-    console.log(err)
-  })
+    order.value.token = res
+    await $api('/order/addOrder', {
+      method: "POST",
+      body: order.value
+    })
+    alert("ทำรายการสำเร็จ")
+    cartStore.clearCart()
+    navigateTo("/")
+
+  }
+  catch (error) {
+    alert(error)
+  }
   // const { data: res, error: error } = await useLazyFetch(`${config.public.baseURL}/order/createPaymentToken`, {
   //   method: "POST",
   //   body: card

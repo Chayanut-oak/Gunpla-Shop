@@ -6,8 +6,7 @@ export const useUserStore = defineStore('user', {
         user: {}
     }),
     getters: {
-
-
+        isAuthenticated() { return !!this.token }
     },
     persist: {
         storage: persistedState.localStorage,
@@ -56,7 +55,7 @@ export const useUserStore = defineStore('user', {
         async signout() {
 
             this.token = "",
-            this.user = {}
+                this.user = {}
         }
     }
 

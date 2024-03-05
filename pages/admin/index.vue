@@ -19,12 +19,12 @@
                             <ListBulletIcon class="h-6 w-6" aria-hidden="true" />
                             <span class="mx-2 text-sm font-['kanit'] font-medium">รายการสินค้า</span>
                         </div>
-                        <div @click="selectedSide = 'orderList'"
+                        <div @click="fetchOrder(); selectedSide = 'orderList'"
                             class="flex items-center px-3 py-2 text-gray-600 font-['kanit'] transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                             <TruckIcon class="h-6 w-6" aria-hidden="true" />
                             <span class="mx-2 text-sm font-['kanit'] font-medium">รายการสั่งซื้อ</span>
                         </div>
-                        <div @click="selectedSide = 'userList'"
+                        <div @click="fetchUser(); selectedSide = 'userList'"
                             class="flex items-center px-3 py-2 text-gray-600 font-['kanit'] transition-colors duration-300 transform rounded-lg dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700">
                             <UserGroupIcon class="h-6 w-6" aria-hidden="true" />
                             <span class="mx-2 text-sm font-['kanit'] font-medium">รายชื้อผู้ใช้</span>
@@ -165,12 +165,17 @@
                         <td class="font-['kanit'] border px-4 py-2">{{ item.type }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.brand }}</td>
 
-                        <template v-if="item.type = 'Gunpla'">
+                        <template v-if="item.type == 'Gunpla'">
                             <td class="font-['kanit'] border px-4 py-2">{{ item.series }}</td>
                             <td class="font-['kanit'] border px-4 py-2">{{ item.scale }}</td>
                             <td class="font-['kanit'] border px-4 py-2">{{ item.grade }}</td>
                         </template>
 
+                        <template v-if="item.type == 'Tool'">
+                            <td class="font-['kanit'] border px-4 py-2">-</td>
+                            <td class="font-['kanit'] border px-4 py-2">-</td>
+                            <td class="font-['kanit'] border px-4 py-2">-</td>
+                        </template>
 
                         <td class="font-['kanit'] border px-4 py-2">{{ item.price }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.stock }}</td>
@@ -178,7 +183,9 @@
                             <PencilSquareIcon class="h-6 w-6" aria-hidden="true" />
                         </td>
                         <td class="font-['kanit'] border px-4 py-2">
-                            <TrashIcon class="h-6 w-6" aria-hidden="true" />
+                            <a href="#" @click="deleteProduct(item)">
+                                <TrashIcon class="h-6 w-6" aria-hidden="true" />
+                            </a>
                         </td>
                     </tr>
                 </tbody>
@@ -188,7 +195,7 @@
                 <thead>
                     <tr class="sticky top-0 bg-white">
                         <th class="font-['kanit'] border px-4 py-2">Order Id</th>
-                        <th class="font-['kanit'] border px-4 py-2">User Id</th>
+                        <th class="font-['kanit'] border px-4 py-2">User</th>
                         <th class="font-['kanit'] border px-4 py-2">รายการสินค้า</th>
                         <th class="font-['kanit'] border px-4 py-2">ราคารวม</th>
                         <th class="font-['kanit'] border px-4 py-2">สถานะ</th>
@@ -196,13 +203,12 @@
                         <th class="font-['kanit'] border px-4 py-2">วันที่สั่งซื้อ</th>
                         <th class="font-['kanit'] border px-4 py-2">ที่อยู่</th>
                         <th class="font-['kanit'] border px-4 py-2">แก้ไข</th>
-                        <th class="font-['kanit'] border px-4 py-2">ลบ</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- <tr v-for="item in productStore.products" :key="item.productId">
+                    <tr v-for="item in allOrder" :key="item.orderId">
                         <td class="font-['kanit'] border px-4 py-2">{{ item.orderId }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.userId }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.email }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.cart }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.totalPrice }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.status }}</td>
@@ -212,36 +218,36 @@
                         <td class="font-['kanit'] border px-4 py-2">
                             <PencilSquareIcon class="h-6 w-6" aria-hidden="true" />
                         </td>
-                        <td class="font-['kanit'] border px-4 py-2">
-                            <TrashIcon class="h-6 w-6" aria-hidden="true" />
-                        </td>
-                    </tr> -->
+                    </tr>
                 </tbody>
             </table>
             <table v-if="selectedSide == 'userList'">
                 <thead>
                     <tr class="sticky top-0 bg-white">
+                        <th class="font-['kanit'] border px-4 py-2">อีเมล</th>
                         <th class="font-['kanit'] border px-4 py-2">รูป</th>
                         <th class="font-['kanit'] border px-4 py-2">ชื่อจริง</th>
-                        <th class="font-['kanit'] border px-4 py-2">อีเมล</th>
                         <th class="font-['kanit'] border px-4 py-2">ที่อยู่</th>
                         <th class="font-['kanit'] border px-4 py-2">เบอร์โทรศัพท์</th>
                         <th class="font-['kanit'] border px-4 py-2">ลบ</th>
                     </tr>
-                </thead>    
+                </thead>
                 <tbody>
-                    <!-- <tr v-for="item in productStore.products" :key="item.productId">
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.userId }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.image }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.fullname }}</td>
+                    <tr v-for="item in allUser" :key="item.email">
                         <td class="font-['kanit'] border px-4 py-2">{{ item.email }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">
+                            <img v-if="item.image" class="h-full w-full object-cover object-center" :src="item.image"
+                                alt="Product Image">
+                            <img v-else class="h-full w-full object-cover object-center" src="/placeholder.jpg"
+                                alt="Product Image">
+                        </td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ item.name }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.address }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.phoneNumebr }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.shippingMethod }}</td>
                         <td class="font-['kanit'] border px-4 py-2">
                             <TrashIcon class="h-6 w-6" aria-hidden="true" />
                         </td>
-                    </tr> -->
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -258,6 +264,26 @@ const config = useRuntimeConfig()
 const userStore = useUserStore()
 const productStore = useProductStore()
 const selectedSide = ref("")
+const allOrder = ref([])
+const allUser = ref([])
+const fetchOrder = async () => {
+    if (allOrder.value.length == 0) {
+        const res = await $api("/order", {
+            method: "GET"
+        })
+        console.log(res)
+        allOrder.value = res
+    }
+}
+const fetchUser = async () => {
+    if (allUser.value.length == 0) {
+        const res = await $api("/user", {
+            method: "GET"
+        })
+        console.log(res)
+        allUser.value = res
+    }
+}
 const newProduct = ref({
     name: "",
     description: "",
@@ -297,15 +323,14 @@ const onFileChange = (event) => {
 
 const addProduct = async () => {
     try {
+        console.log(userStore.token)
         const res = await $fetch(`${config.public.baseURL}/s3/upload-image`, {
             body: formData,
             header: {
-                'Content-Type': 'multipart/form-data',
-                "Authorization": "bearer " + userStore.token
+                'Content-Type': 'multipart/form-data'
             },
             method: "POST"
         })
-        console.log(res)
         newProduct.value.images = res.imageUrls
 
         if (newProduct.value.type == "Gunpla") {
@@ -334,12 +359,30 @@ const addProduct = async () => {
             images: []
         }
         document.getElementById('images').value = null;
+        productStore.fetchProducts()
     }
     catch (err) {
         alert((err))
     }
 
 
+}
+const deleteProduct = async (product) => {
+    try {
+        if (product.type == "Gunpla") {
+            await $api(`/gunpla/deleteGunpla/${product.productId}`, {
+                method: "DELETE"
+            })
+        } else if (product.type == "Tool") {
+            await $api(`/tool/deleteTool/${product.productId}`, {
+                method: "DELETE"
+            })
+        }
+        productStore.fetchProducts()
+    }
+    catch (error) {
+        alert(error)
+    }
 }
 const series = {
     id: 'seriesId',

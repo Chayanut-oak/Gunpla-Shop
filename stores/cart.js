@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import products from '../assets/product/product.json'
 import { useProductStore } from '@/stores/product'
+import { useUserStore } from "@/stores/user"
 export const useCartStore = defineStore('cart', {
     state: () => ({
         cart: [],
@@ -18,18 +19,22 @@ export const useCartStore = defineStore('cart', {
     },
     actions: {
         addProduct(item) {
-            const productStore = useProductStore();
-            const existingItem = this.cart.find((i) => i.productId === item.productId);
-            const productInDatabase = productStore.products.find((i) => i.productId === item.productId);
-            if (existingItem) {
-                if (existingItem.quantity < productInDatabase.stock) {
-                    existingItem.quantity++;
-                } else {
-                    alert("สินค้าหมดแล้ว");
-                }
-            } else {
-                this.cart.push({ ...item, quantity: 1 });
+            const userStore = useUserStore() 
+            if (!userStore.token) {
+                navigateTo("/login")
             }
+            const productStore = useProductStore();
+                const existingItem = this.cart.find((i) => i.productId === item.productId);
+                const productInDatabase = productStore.products.find((i) => i.productId === item.productId);
+                if (existingItem) {
+                    if (existingItem.quantity < productInDatabase.stock) {
+                        existingItem.quantity++;
+                    } else {
+                        alert("สินค้าหมดแล้ว");
+                    }
+                } else {
+                    this.cart.push({ ...item, quantity: 1 });
+                }
         },
         removeProduct(productId) {
             const index = this.cart.findIndex((item) => item.productId === productId);
@@ -40,7 +45,7 @@ export const useCartStore = defineStore('cart', {
         reduceProduct(item) {
             const existingItem = this.cart.find((i) => i.productId === item.productId);
             console.log(existingItem.quantity)
-            if (existingItem.quantity >= 2){
+            if (existingItem.quantity >= 2) {
                 existingItem.quantity--;
             }
             else {

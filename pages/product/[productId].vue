@@ -78,7 +78,7 @@
                             </div>
 
                         </div>
-                        <div class="flex items-center">
+                        <!-- <div class="flex items-center">
                             <span class="font-['kanit'] text-gray-900 pr-4">จำนวน: </span>
                             <button @click="decrementQuantity()"
                                 class="bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded-l">-</button>
@@ -86,8 +86,8 @@
                                 class="text-center w-16 bg-gray-100 text-gray-800 py-2 px-4" @input="validateNumber()" />
                             <button @click="incrementQuantity()"
                                 class="bg-gray-300 text-gray-600 font-bold py-2 px-4 rounded-r">+</button>
-                        </div>
-                        <button
+                        </div> -->
+                        <button @click="cartStore.addProduct(product)"
                             class="font-['kanit'] mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                             เพิ่มลงตะกร้า</button>
                     </div>
@@ -106,25 +106,27 @@ import { ref, computed } from 'vue'
 import { StarIcon } from '@heroicons/vue/20/solid'
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
 import { Carousel, Slide } from 'vue3-carousel'
-import { useProductStore } from '../../stores/product'
+import { useProductStore } from '@/stores/product'
+import { useCartStore } from '@/stores/cart'
 import 'vue3-carousel/dist/carousel.css'
 const route = useRoute()
 const productStore = useProductStore()
+const cartStore = useCartStore()
 console.log("From product id: ", productStore.products)
 const product = productStore.products.find((item) => item.productId == route.params.productId)
 const currentSlide = ref(0)
-const quantity = ref(1)
-function decrementQuantity() {
-    if (this.quantity > 1) {
-        this.quantity--;
-    }
-}
-function incrementQuantity() {
-    if (this.quantity < product.stock) {
-        this.quantity++;
-    }
+// const quantity = ref(1)
+// function decrementQuantity() {
+//     if (this.quantity > 1) {
+//         this.quantity--;
+//     }
+// }
+// function incrementQuantity() {
+//     if (this.quantity < product.stock) {
+//         this.quantity++;
+//     }
 
-}
+// }
 function slideTo(val) {
     this.currentSlide = val
 }

@@ -11,13 +11,11 @@ export const useProductStore = defineStore('products', {
     actions: {
         async fetchProducts() {
             const { $api } = useNuxtApp()
-            const gunpla = await $api("/gunpla", {
-                method: "GET"
-            })
-            const tool = await $api("/tool", {
-                method: "GET"
-            })
-            this.products = [...gunpla, ...tool]
+            const [gunpla, tool] = await Promise.all([
+                $api("/gunpla", { method: "GET" }),
+                $api("/tool", { method: "GET" })
+            ])
+            this.products = (gunpla ? gunpla : []).concat(tool ? tool : [])
         }
     }
 
