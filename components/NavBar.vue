@@ -59,7 +59,8 @@
                 </Nuxt-link>
                 </MenuItem>
                 <MenuItem v-slot="{ active }">
-                <a @click="userStore.signout()" href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
+                <a @click="userStore.signout()" href="#"
+                  :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
                 </MenuItem>
               </MenuItems>
 
@@ -111,8 +112,10 @@
                         <ul role="list" class="-my-6 divide-y divide-gray-200">
                           <li v-for="item in cartStore.cart" :key="item.name" class="flex py-6 ">
                             <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 ">
-                              <img :src="item.images[0]" alt="Product Images"
-                                class="h-full w-full object-cover object-center" />
+                              <img v-if="item.images" class="h-full w-full object-cover object-center"
+                                :src="item.images[0]" alt="Product Image">
+                              <img v-else class="h-full w-full object-cover object-center" src="/placeholder.jpg"
+                                alt="Product Image">
                             </div>
 
                             <div class="ml-4 flex flex-1 flex-col ">
@@ -182,16 +185,19 @@
 
 <script setup>
 import { useCartStore } from '@/stores/cart';
+import { useUserStore } from '@/stores/user';
+import { useProductStore } from "@/stores/product";
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems, Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { Bars3Icon, BellIcon, MinusIcon, ShoppingCartIcon, XMarkIcon, TrashIcon } from '@heroicons/vue/24/outline'
 import { ref, computed } from 'vue'
-import { useUserStore } from '@/stores/user';
 // import { useRoute } from 'vue-router';
 // const { data : products } = await useFetch('http:localhost:8080/fetchProduct')
 // console.log(products.value)
 const route = useRoute();
 const userStore = useUserStore()
 const cartStore = useCartStore()
+const productStore = useProductStore()
+productStore.fetchProducts()
 const openCart = ref(false)
 
 const navigation = [

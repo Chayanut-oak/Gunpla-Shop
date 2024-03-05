@@ -10,10 +10,10 @@
     <div class="lg:p-36 md:p-52 sm:20 p-8 w-full lg:w-1/2">
       <h1 class="text-2xl font-semibold mb-4">Login</h1>
       <form @submit.prevent="login">
-        <!-- Username Input -->
+        <!-- Email Input -->
         <div class="mb-4">
-          <label for="username" class="block text-white mb-2">Username</label>
-          <input type="text" id="username" v-model="username" name="username" required
+          <label for="Email" class="block text-white mb-2">Email</label>
+          <input type="text" id="Email" v-model="email" name="Email" required
             class="text-white w-full border blue-neon rounded-md py-2 px-3 focus:outline-none bg-transparent"
             autocomplete="off">
         </div>
@@ -55,12 +55,12 @@ import { useUserStore } from '~/stores/user';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 const user = useUserStore()
-const username = ref('');
+const email = ref('');
 const password = ref('');
 const router = useRouter();
 const login = async () => {
   try {
-    await user.login(username.value, password.value);
+    await user.login(email.value, password.value);
     router.push('/'); 
   } catch (error) {
     console.error('Error logging in:', error);

@@ -12,8 +12,9 @@
 
           <div class="fixed inset-0 z-40 flex">
             <TransitionChild as="template" enter="transition ease-in-out duration-300 transform"
-              enter-from="translate-x-full" enter-to="translate-x-0" leave="transition ease-in-out duration-300 transform"
-              leave-from="translate-x-0" leave-to="translate-x-full">
+              enter-from="translate-x-full" enter-to="translate-x-0"
+              leave="transition ease-in-out duration-300 transform" leave-from="translate-x-0"
+              leave-to="translate-x-full">
               <DialogPanel
                 class="relative ml-auto flex h-full w-full max-w-xs flex-col overflow-y-auto bg-white py-4 pb-12 shadow-xl">
                 <div class="flex items-center justify-between px-4">
@@ -44,7 +45,8 @@
                     </h3>
                     <DisclosurePanel class="pt-6">
                       <div class="space-y-6">
-                        <div v-for="(option, optionIdx) in section.options" :key="option.value" class="flex items-center">
+                        <div v-for="(option, optionIdx) in section.options" :key="option.value"
+                          class="flex items-center">
                           <input :id="`filter-mobile-${section.id}-${optionIdx}`" :name="`${section.id}[]`"
                             :value="option.value" type="radio" :checked="option.checked"
                             class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
@@ -86,7 +88,7 @@
                     <MenuItem v-for="option in sortOptions" :key="option.name" v-slot="{ active }">
                     <a :href="option.href"
                       :class="[option.current ? 'font-[\'kanit\'] text-gray-900' : 'text-gray-500', active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm', 'font-kanit']">{{
-                        option.name }}
+        option.name }}
                     </a>
                     </MenuItem>
                   </div>
@@ -129,8 +131,9 @@
                       <input :id="`filter-${series.id}-${optionIdx}`" :name="`${series.id}`" :value="option.value"
                         type="radio" :checked="option.checked" v-model="selectedSerie"
                         class="h-4 w-4 rounded  border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                      <label :for="`filter-${series.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600 font-['kanit']">{{ option.value
-                      }}</label>
+                      <label :for="`filter-${series.id}-${optionIdx}`"
+                        class="ml-3 text-sm text-gray-600 font-['kanit']">{{ option.value
+                        }}</label>
                     </div>
                   </div>
                 </DisclosurePanel>
@@ -153,8 +156,9 @@
                       <input :id="`filter-${type.id}-${optionIdx}`" :name="`${type.id}`" :value="option.value"
                         type="radio" :checked="option.checked" v-model="selectedType"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                      <label :for="`filter-${type.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600 font-['kanit']" >{{ option.value
-                      }}</label>
+                      <label :for="`filter-${type.id}-${optionIdx}`"
+                        class="ml-3 text-sm text-gray-600 font-['kanit']">{{ option.value
+                        }}</label>
                     </div>
                   </div>
                 </DisclosurePanel>
@@ -176,8 +180,9 @@
                       <input :id="`filter-${grade.id}-${optionIdx}`" :name="`${grade.id}`" :value="option.value"
                         type="radio" :checked="option.checked" v-model="selectedGrade"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                      <label :for="`filter-${grade.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600 font-['kanit']">{{ option.value
-                      }}</label>
+                      <label :for="`filter-${grade.id}-${optionIdx}`"
+                        class="ml-3 text-sm text-gray-600 font-['kanit']">{{ option.value
+                        }}</label>
                     </div>
                   </div>
                 </DisclosurePanel>
@@ -199,8 +204,9 @@
                       <input :id="`filter-${scale.id}-${optionIdx}`" :name="`${scale.id}`" :value="option.value"
                         type="radio" :checked="option.checked" v-model="selectedScale"
                         class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500" />
-                      <label :for="`filter-${scale.id}-${optionIdx}`" class="ml-3 text-sm text-gray-600 font-['kanit']">{{ option.value
-                      }}</label>
+                      <label :for="`filter-${scale.id}-${optionIdx}`"
+                        class="ml-3 text-sm text-gray-600 font-['kanit']">{{ option.value
+                        }}</label>
                     </div>
                   </div>
                 </DisclosurePanel>
@@ -216,9 +222,12 @@
                 <div class="bg-transparent rounded-lg overflow-hidden  border-4 border-orange-200 max-w-sm relative m-5"
                   v-for="item in filteredProducts" :key="item.name">
                   <Nuxt-link :to="`/product/${item.productId}`">
-                    <div class="background-gold text-center text-gray-900 font-bold font-['kanit'] ">{{ item.name }}</div>
+                    <div class="background-gold text-center text-gray-900 font-bold font-['kanit'] ">{{ item.name }}
+                    </div>
                     <div class="relative ">
-                      <img class=" object-cover object-center w-60 h-72 bottom-0 " :src=item.images[0]
+                      <img v-if="item.images" class=" object-cover object-center w-60 h-72 bottom-0 " :src=item.images[0]
+                        alt="Product Image">
+                      <img v-else class=" object-cover object-center w-60 h-72 bottom-0 " src="/placeholder.jpg"
                         alt="Product Image">
                       <div
                         class="absolute flex justify-between left-0 p-1 bg-black bg-opacity-50 text-white bottom-6 w-full">
@@ -258,7 +267,7 @@
     </div>
   </div>
 </template>
-  
+
 <script setup>
 import { ref } from 'vue'
 import {

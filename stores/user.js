@@ -13,11 +13,11 @@ export const useUserStore = defineStore('user', {
         storage: persistedState.localStorage,
     },
     actions: {
-        async login(username, password) {
+        async login(email, password) {
             const { $api } = useNuxtApp()
             try {
                 const requestBody = {
-                    email: username,
+                    email: email,
                     password: password
                 };
                 const response = await $api('/user/authentication', {
@@ -27,17 +27,17 @@ export const useUserStore = defineStore('user', {
                 console.log(response.token)
                 this.token = response.token;
                 this.user = response.user
-                
+
             } catch (error) {
                 console.error('Error logging in:', error);
                 throw error;
             }
         },
-        async register(username, password) {
+        async register(email, password) {
             const { $api } = useNuxtApp()
             try {
                 const requestBody = {
-                    email: username,
+                    email: email,
                     password: password
                 };
                 const response = await $api('/user/newUser', {
@@ -56,7 +56,7 @@ export const useUserStore = defineStore('user', {
         async signout() {
 
             this.token = "",
-                this.user = {}
+            this.user = {}
         }
     }
 

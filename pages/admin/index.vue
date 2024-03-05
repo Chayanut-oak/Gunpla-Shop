@@ -156,8 +156,9 @@
                 <tbody>
                     <tr v-for="item in productStore.products" :key="item.productId">
                         <td class="font-['kanit'] border px-4 py-2">{{ item.productId }}</td>
-                        <td class="font-['kanit'] border px-4 py-2"><img :src="item.images[0]" alt=""
-                                class="h-16 w-16 object-cover">
+                        <td class="font-['kanit'] border px-4 py-2">
+                            <img v-if="item.images" :src="item.images[0]" alt="" class="h-16 w-16 object-cover">
+                            <img v-else src="/placeholder.jpg" alt="" class="h-16 w-16 object-cover">
                         </td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.name }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.description }}</td>
@@ -250,10 +251,11 @@
 
 <script setup>
 import { useProductStore } from '@/stores/product';
+import { useUserStore } from '@/stores/user';
 import { TrashIcon, PencilSquareIcon, ListBulletIcon, PlusCircleIcon, UserGroupIcon, TruckIcon } from '@heroicons/vue/24/outline'
 const { $api } = useNuxtApp()
 const config = useRuntimeConfig()
-
+const userStore = useUserStore()
 const productStore = useProductStore()
 const selectedSide = ref("")
 const newProduct = ref({
@@ -298,7 +300,8 @@ const addProduct = async () => {
         const res = await $fetch(`${config.public.baseURL}/s3/upload-image`, {
             body: formData,
             header: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                "Authorization": "bearer " + userStore.token
             },
             method: "POST"
         })

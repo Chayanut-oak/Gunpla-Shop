@@ -20,16 +20,17 @@
 </Carousel>
 </div>
 </div> -->
-  <Carousel :settings="settings" :breakpoints="breakpoints">
-    <Slide v-for="(item, index) in filteredProduct" :key="index"
+<Carousel :settings="settings" :breakpoints="breakpoints">
+    <Slide v-for="(item, index) in productStore.products" :key="index"
       class="transition duration-300 ease-in-out hover:scale-110">
       <div class="bg-transparent rounded-lg overflow-hidden border-4 border-orange-200 max-w-sm relative m-5"
-        v-if="index !== filteredProduct.length - 1">
+        v-if="index !== productStore.products.length - 1">
         <!-- Render content for non-last items -->
-        <Nuxt-link :to="`/product/${item.id}`">
+        <Nuxt-link :to="`/product/${item.productId}`">
           <div class="background-gold text-center text-gray-900 font-bold font-['kanit']">{{ item.name }}</div>
           <div class="relative">
-            <img class="object-cover object-center w-60 h-72 bottom-0" :src="item.images[0]" alt="Product Image">
+            <img v-if="item.images" class="object-cover object-center w-60 h-72 bottom-0" :src="item.images[0]" alt="Product Image">
+            <img v-else class="object-cover object-center w-60 h-72 bottom-0" src="/placeholder.jpg" alt="Product Image">
             <div class="absolute flex justify-between left-0 p-1 bg-black bg-opacity-50 text-white bottom-6 w-full">
               <span class="font-bold font-['kanit'] text-lg">{{ item.price }} บาท</span>
             </div>
@@ -122,13 +123,12 @@ import { useCartStore } from '~/stores/cart'
 import { useProductStore } from '~/stores/product'
 const productStore = useProductStore()
 const cartStore = useCartStore()
-
-const filteredProduct = productStore.products.filter((item) => {
-  if (item.hasOwnProperty('grade')) {
-    return item.grade.split('(')[0].trim().replace(" ", "-").toLocaleLowerCase() == 'high-grade'
-  }
-})
-console.log(filteredProduct.length)
+// const filteredProduct = productStore.products.filter((item) => {
+//   if (item.hasOwnProperty('grade')) {
+//     return item.grade.split('(')[0].trim().replace(" ", "-").toLocaleLowerCase() == 'high-grade'
+//   }
+// })
+// console.log(filteredProduct.length)
 // const images = ref([{
 //   "name": "high-grade",
 //   "image": "hg"

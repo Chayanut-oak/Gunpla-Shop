@@ -4,7 +4,7 @@
             <div class="pt-6">
                 <!-- Image gallery -->
                 <div class="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
-                    <div>
+                    <div v-if="product.images">
                         <Carousel id="gallery" :items-to-show="1" :wrap-around="false" v-model="currentSlide">
                             <Slide v-for="(image, index) in product.images" :key="index">
                                 <img :src=image alt="product" class="h-full w-full object-cover object-center" />
@@ -12,11 +12,14 @@
                         </Carousel>
                         <Carousel id="thumbnails" :items-to-show="3" :wrap-around="true" v-model="currentSlide"
                             ref="carousel">
-                            <Slide v-for="(image, index) in product.images" :key="index">
+                            <Slide  v-for="(image, index) in product.images" :key="index">
                                 <img :src=image alt="product" class="h-full w-full object-cover object-center "
                                     @click="slideTo(index)" />
                             </Slide>
                         </Carousel>
+                    </div>
+                    <div v-else>
+                        <img src='/placeholder.jpg' alt="product" class="h-full w-full object-cover object-center" />
                     </div>
 
                     <!-- Product info Gunpla-->
