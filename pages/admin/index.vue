@@ -211,7 +211,8 @@
                         <td class="font-['kanit'] border px-4 py-2">{{ item.cart }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.totalPrice }}</td>
                         <td class="font-['kanit'] border px-4 py-2">
-                            <select v-model="item.status" @change="updateStatus(item)" class="block w-auto px-4 py-2 border rounded-md" :disabled="item.status === 'Cancel'">
+                            <select v-model="item.status" @change="updateStatus(item)"
+                                class="block w-auto px-4 py-2 border rounded-md" :disabled="item.status === 'Cancel'">
                                 <option selected>{{ item.status }}</option>
                                 <option value="Pending" v-if="item.status !== 'Pending'">Pending</option>
                                 <option value="Completed" v-if="item.status !== 'Completed'">Completed</option>
@@ -220,7 +221,8 @@
                         </td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.shippingMethod }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.orderDate }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">{{ (item.address).replace(/(.{10})/g, '$1\n') }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ (item.address).replace(/(.{10})/g, '$1\n') }}
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -248,7 +250,9 @@
                         <td class="font-['kanit'] border px-4 py-2">{{ item.address }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.phoneNumebr }}</td>
                         <td class="font-['kanit'] border px-4 py-2">
-                            <TrashIcon class="h-6 w-6" aria-hidden="true" />
+                            <button @click="deleteItem(item.email)" class="focus:outline-none">
+                                <TrashIcon class="h-6 w-6 cursor-pointer" aria-hidden="true" />
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -279,13 +283,23 @@ const fetchOrder = async () => {
 }
 const fetchUser = async () => {
     if (allUser.value.length == 0) {
-        const res = await $api("/user", {
+        const res = await $api("/user/allUser", {
             method: "GET"
         })
         console.log(res)
         allUser.value = res
+        allUser.value = allUser.value.filter(user => user.role !== 'admin');
     }
 }
+
+const deleteItem = async (item) => {
+        const res = await $api(`/user/deleteUser/${item}`, {
+            method: "DELETE",
+        })
+        console.log(res)
+        allUser.value = allUser.value.filter(user => user.email !== item)
+}
+
 const newProduct = ref({
     name: "",
     description: "",
@@ -324,20 +338,20 @@ const onFileChange = (event) => {
     // }
 }
 const updateStatus = async (item) => {
-  try {
-    const res = await $api(`/order/updateOrder`, {
-      method: 'PUT',
-      body: item
-    })
+    try {
+        const res = await $api(`/order/updateOrder`, {
+            method: 'PUT',
+            body: item
+        })
 
-    if (!res.ok) {
-      throw new Error('Failed to update status');
+        if (!res.ok) {
+            throw new Error('Failed to update status');
+        }
+
+        // Handle success response if needed
+    } catch (error) {
+        console.error('Error updating status:', error);
     }
-
-    // Handle success response if needed
-  } catch (error) {
-    console.error('Error updating status:', error);
-  }
 };
 const addProduct = async () => {
     try {

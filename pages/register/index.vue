@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black h-min-screen flex justify-center items-center h-screen">
+  <div class="bg-[url('https://th.gundam.info/content/mgka/narrative/images/02about/bg.jpg')]  h-min-screen flex justify-center items-center h-screen">
 
     <!-- Left: Image -->
     <div class="w-1/2 h-screen hidden lg:block">
@@ -12,28 +12,28 @@
       <form @submit.prevent="register">
         <!-- Email Input -->
         <div class="mb-4">
-          <label for="email" class="block text-white mb-2">Email</label>
+          <label for="email" class="block text-gray-700 mb-2">Email</label>
           <input type="text" id="email" v-model="email" name="email" required
-            class="text-white w-full border blue-neon rounded-md py-2 px-3 focus:outline-none bg-transparent"
+            class="text-gray-700 w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none bg-white"
             autocomplete="off">
         </div>
         <!-- Password Input -->
         <div class="mb-4">
-          <label for="password" class="block text-white mb-2">Password</label>
+          <label for="password" class="block text-gray-700 mb-2">Password</label>
           <input type="password" id="password" v-model="password" name="password" required
-            class="text-white w-full border blue-neon rounded-md py-2 px-3 focus:outline-none bg-transparent"
+            class="text-gray-700 w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none bg-white"
             autocomplete="off">
         </div>
         <!-- Confirm Password Input -->
         <div class="mb-4">
-          <label for="confirmPassword" class="block text-white mb-2">Confirm Password</label>
+          <label for="confirmPassword" class="block text-gray-700 mb-2">Confirm Password</label>
           <input type="password" id="confirmPassword" v-model="confirmPassword" name="confirmPassword" required
-            class="text-white w-full border blue-neon rounded-md py-2 px-3 focus:outline-none bg-transparent"
+            class="text-gray-700 w-full border border-gray-400 rounded-md py-2 px-3 focus:outline-none bg-white"
             autocomplete="off">
         </div>
         <!-- Create Account Button -->
         <button type="submit"
-          class="bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-md py-2 px-4 w-full">Create
+          class="border-cyan-500 bg-sky-900 hover:bg-sky-950 border-2 text-white font-semibold rounded-md py-2 px-4 w-full">Create
           Account</button>
       </form>
       <nuxt-link to="/login">
