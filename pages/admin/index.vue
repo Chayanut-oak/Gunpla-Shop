@@ -211,7 +211,7 @@
                         <td class="font-['kanit'] border px-4 py-2">{{ item.cart }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.totalPrice }}</td>
                         <td class="font-['kanit'] border px-4 py-2">
-                            <select v-model="item.status" @change="updateStatus(item)" class="block w-auto px-4 py-2 border rounded-md">
+                            <select v-model="item.status" @change="updateStatus(item)" class="block w-auto px-4 py-2 border rounded-md" :disabled="item.status === 'Cancel'">
                                 <option selected>{{ item.status }}</option>
                                 <option value="Pending" v-if="item.status !== 'Pending'">Pending</option>
                                 <option value="Completed" v-if="item.status !== 'Completed'">Completed</option>
