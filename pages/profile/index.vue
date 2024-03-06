@@ -1,97 +1,88 @@
-
-<script setup>
-definePageMeta({
-  layout: "justnav"
-});
-</script>
 <template>
-  <div
-    class="bg-[url('https://th.gundam.info/content/mgka/narrative/images/02about/bg.jpg')] flex h-screen">
-    <div class="container mx-auto my-auto  h-auto  w-auto items-center justify-center" >
-      <div class="md:flex no-wrap md:-mx-2 ">
-        <!-- Left Side -->
-        <div class="w-full md:w-2/6 md:mx-2 ">
-          <!-- Profile Card -->
-          <div class="border-b-4 border-cyan-200 h-full ">
-            <div class="bg-sky-950 pt-5 bg-opacity-75 text-cyan-300 border-cyan-300 border-solid border-2 h-full ">
-              <div class="image overflow-hidden">
-                <img class="h-96 w-80 mx-auto object-contain "
-                  src="https://preview.redd.it/mash-from-mashle-magic-and-muscles-v0-w0lnuo2dl07b1.jpg?width=640&crop=smart&auto=webp&s=d3be7b44c8909439f7c9df0553adeb5225dd5bc7"
-                  alt="">
-              </div>
+  <div class="container min-h-screen mx-auto mt-5">
+    <!-- Header Section -->
+    <div class="bg-gray-800 text-white p-4 rounded-md flex justify-between">
+      <h1 class="text-2xl font-kanit font-bold">User Profile</h1>
+      <a href="#" @click="isEditing = !isEditing">
+        <PencilSquareIcon class="h-6 w-6" aria-hidden="true" />
+      </a>
+    </div>
 
-              <div class=" pt-2 px-3 mt-3 divide-y shadow-sm border-cyan-300 border-solid border-t-2 bottom-0">
-
-                <li class="flex items-center py-3 ">
-                  <span>Member since</span>
-                  <span class="ml-auto">Nov 07, 2016</span>
-                </li>
-              </div>
-            </div>
-          </div>
-          <!-- End of profile card -->
-          <div class="my-4"></div>
-
-        </div>
-        <!-- Right Side -->
-        <!-- Profile tab -->
-        <!-- About Section -->
-        <div
-          class="bg-sky-500 border-cyan-300 border-solid border-2 bg-opacity-40 font-semibold ">
-          <div class="flex items-center profile-header text-cyan-300 border-cyan-300 border-solid border-b-2 bg-slate-900 font-semibold bg-opacity-85">
-            <span clas="">
-              <svg class="h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </span>
-            <span class="tracking-wide ">About</span>
-          </div>
-          <div
-            class="text-white  content-between h-full pt-5">
-            <div class="grid md:grid-cols-2 text-sm ">
-              <div class="grid grid-cols-2 mb-5">
-                <div class="px-4 py-2 font-semibold">First Name</div>
-                <div class="px-4 py-2">Jane</div>
-              </div>
-              <div class="grid grid-cols-2 mb-5">
-                <div class="px-4 py-2 font-semibold">Last Name</div>
-                <div class="px-4 py-2">Doe</div>
-              </div>
-              <div class="grid grid-cols-2 mb-5">
-                <div class="px-4 py-2 font-semibold">Gender</div>
-                <div class="px-4 py-2">Female</div>
-              </div>
-              <div class="grid grid-cols-2 mb-5">
-                <div class="px-4 py-2 font-semibold">Contact No.</div>
-                <div class="px-4 py-2">+11 998001001</div>
-              </div>
-              <div class="grid grid-cols-2 mb-5">
-                <div class="px-4 py-2 font-semibold">Current Address</div>
-                <div class="px-4 py-2">Beech Creek, PA, Pennsylvania</div>
-              </div>
-              <div class="grid grid-cols-2 mb-5">
-                <div class="px-4 py-2 font-semibold">Permanant Address</div>
-                <div class="px-4 py-2">Arlington Heights, IL, Illinois</div>
-              </div>
-              <div class="grid grid-cols-2 mb-5">
-                <div class="px-4 py-2 font-semibold">Email.</div>
-                <div class="px-4 py-2">
-                  <a class="text-white" href="mailto:jane@example.com">jane@example.com</a>
-                </div>
-              </div>
-              <div class="grid grid-cols-2 mb-5">
-                <div class="px-4 py-2 font-semibold">Birthday</div>
-                <div class="px-4 py-2">Feb 06, 1998</div>
-              </div>
-            </div>
-          </div>
-
-        </div>
+    <!-- Profile Information Section -->
+    <div class="flex flex-col md:flex-row mt-8 p-4 bg-white shadow-md rounded-md ">
+      <div class="flex flex-col items-center justify-center md:w-1/4">
+        <a href="#">
+          <img
+            class="border-2 border-gray-500 rounded-full hover:border-teal-500 hover:border-4 transition duration-300 ease-in-out"
+            :src="user.image" alt="Profile Picture" @click="isImageEditing = !isImageEditing, isUploadImage = 0">
+        </a>
+        <input v-if="isImageEditing" id="images" name="images" type="file" accept="image/*" @change="onFileChange"
+          class="block w-full rounded font-kanit border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-base text-gray-500 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 mt-4 md:mt-0" />
+        <button v-if="isUploadImage" @click="saveImage()"
+          class="mt-4 inline-flex w-fit items-center justify-center rounded bg-[#2c52b3] py-2.5 px-4 text-base font-semibold font-['kanit'] tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg">บันทึกรูปภาพ</button>
       </div>
-      <!-- End of profile tab -->
+
+      <!-- Additional Information -->
+      <div class="flex flex-col md:w-3/4 md:ml-10 ">
+        <label for="email" class="text-lg font-kanit text-gray-700">อีเมล</label>
+        <input disabled="" id="email" name="email" placeholder="" v-model="user.email"
+          class="block mb-4 w-full pointer-events-none opacity-50 rounded font-kanit border-gray-300 bg-gray-150 py-3 px-4 pr-10 text-base text-gray-700 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 " />
+        <label for="name" class="text-lg font-kanit text-gray-700">ชื่อ-นามสกุล</label>
+        <input :disabled="!isEditing" id="name" name="name" placeholder="" v-model="user.name"
+          :class="{ 'pointer-events-none opacity-50': !isEditing }"
+          class="block mb-4 w-full rounded font-kanit border-gray-300 bg-gray-150 py-3 px-4 pr-10 text-base text-gray-700 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 " />
+        <label for="address" class="text-lg font-kanit text-gray-700">ที่อยู่</label>
+        <textarea :disabled="!isEditing" id="address" name="address" placeholder="" v-model="user.address"
+          :class="{ 'pointer-events-none opacity-50': !isEditing }"
+          class="block mb-4 w-full rounded font-kanit border-gray-300 bg-gray-150 py-3 px-4 pr-10 text-base text-gray-500 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 " />
+        <!-- Add more profile information here -->
+        <button v-if="isEditing" @click="saveEdit()"
+          class="mt-4 inline-flex w-fit items-center justify-center rounded bg-[#2c52b3] py-2.5 px-4 text-base font-semibold font-['kanit'] tracking-wide text-white text-opacity-80 outline-none ring-offset-2 transition hover:text-opacity-100 focus:ring-2 focus:ring-teal-500 sm:text-lg">บันทึกการเปลี่ยนแปลง</button>
+
+      </div>
     </div>
   </div>
 </template>
 
-  
+
+<script setup>
+import { PencilSquareIcon } from '@heroicons/vue/24/outline'
+import { useUserStore } from '@/stores/user'
+const userStore = useUserStore()
+const user = ref({
+  image: "/mascot.png",
+  email: "nutthai1771@gmail.com",
+  name: "Nut Thaiwattananon",
+  address: "Nakniwat 17"
+})
+const isImageEditing = ref(0)
+const isUploadImage = ref(0)
+const isEditing = ref(0)
+const saveEdit = async () => {
+  try {
+    await $api('/user/updateUser', { method: "PUT", body: user.value })
+  }
+  catch (error) {
+    alert(error)
+  }
+}
+const saveImage = async () => {
+  try {
+    await $api('/user/updateUser', { method: "PUT", body: user.value })
+    isImageEditing.value = 0
+    isUploadImage.value = 0
+  }
+  catch (error) {
+    alert(error)
+  }
+}
+var formData = new FormData();
+const onFileChange = (event) => {
+  formData = new FormData();
+  // console.log(event.target.files)
+  const files = event.target.files[0];
+  formData.append('files', files);
+
+  isUploadImage.value = !isUploadImage.value
+}
+</script>
