@@ -202,7 +202,6 @@
                         <th class="font-['kanit'] border px-4 py-2">ประเภทการจัดส่ง</th>
                         <th class="font-['kanit'] border px-4 py-2">วันที่สั่งซื้อ</th>
                         <th class="font-['kanit'] border px-4 py-2">ที่อยู่</th>
-                        <th class="font-['kanit'] border px-4 py-2">แก้ไข</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -211,13 +210,17 @@
                         <td class="font-['kanit'] border px-4 py-2">{{ item.email }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.cart }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.totalPrice }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.status }}</td>
+                        <td class="font-['kanit'] border px-4 py-2">
+                            <select v-model="item.status" @change="updateStatus(item)" class="block w-auto px-4 py-2 border rounded-md">
+                                <option selected>{{ item.status }}</option>
+                                <option value="Pending" v-if="item.status !== 'Pending'">Pending</option>
+                                <option value="Completed" v-if="item.status !== 'Completed'">Completed</option>
+                                <option value="Cancel" v-if="item.status !== 'Cancel'">Cancel</option>
+                            </select>
+                        </td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.shippingMethod }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.orderDate }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">{{ item.address }}</td>
-                        <td class="font-['kanit'] border px-4 py-2">
-                            <PencilSquareIcon class="h-6 w-6" aria-hidden="true" />
-                        </td>
+                        <td class="font-['kanit'] border px-4 py-2">{{ (item.address).replace(/(.{10})/g, '$1\n') }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -296,7 +299,8 @@ const newProduct = ref({
     stock: null,
     images: []
 })
-// const images = ref([])
+
+
 var formData = new FormData();
 const onFileChange = (event) => {
     formData = new FormData();
@@ -320,7 +324,22 @@ const onFileChange = (event) => {
     //     reader.readAsDataURL(file);
     // }
 }
+const updateStatus = async (item) => {
+  try {
+    const res = await $api(`/order/updateOrder`, {
+      method: 'PUT',
+      body: item
+    })
 
+    if (!res.ok) {
+      throw new Error('Failed to update status');
+    }
+
+    // Handle success response if needed
+  } catch (error) {
+    console.error('Error updating status:', error);
+  }
+};
 const addProduct = async () => {
     try {
         console.log(userStore.token)
