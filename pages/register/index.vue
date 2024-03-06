@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-black flex justify-center items-center h-screen">
+  <div class="bg-black h-min-screen flex justify-center items-center h-screen">
 
     <!-- Left: Image -->
     <div class="w-1/2 h-screen hidden lg:block">

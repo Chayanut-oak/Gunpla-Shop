@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white">
+    <div v-if="product" class="bg-white">
         <div class="bg-white">
             <div class="pt-6">
                 <!-- Image gallery -->
@@ -12,7 +12,7 @@
                         </Carousel>
                         <Carousel id="thumbnails" :items-to-show="3" :wrap-around="true" v-model="currentSlide"
                             ref="carousel">
-                            <Slide  v-for="(image, index) in product.images" :key="index">
+                            <Slide v-for="(image, index) in product.images" :key="index">
                                 <img :src=image alt="product" class="h-full w-full object-cover object-center "
                                     @click="slideTo(index)" />
                             </Slide>
@@ -27,26 +27,28 @@
                         class="mx-auto max-w-2xl px-4 pb-16 pt-10 sm:px-6 lg:flex-row lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:px-8 lg:pb-24 lg:pt-16 lg:border-l lg:border-gray-200">
                         <div>
                             <div class="lg:col-span-2  lg:pl-8">
-                                <h1 class="font-['kanit'] text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{{
-                                    product.name }}</h1>
+                                <h1 class="font-['kanit'] text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">
+                                    {{
+        product.name }}</h1>
                             </div>
 
                             <!-- Options -->
                             <div class="mt-4 lg:row-span-3 lg:mt-0 ">
                                 <h2 class="sr-only">Product information</h2>
                                 <p class="font-['kanit'] text-3xl tracking-tight text-gray-900 lg:pl-8 pt-2">{{
-                                    product.price }}
+        product.price }}
                                     บาท
                                 </p>
                                 <p class="font-['kanit'] text-2xl tracking-tight text-gray-500 lg:pl-8 ">คงเหลือ {{
-                                    product.stock }} ea
+        product.stock }} ea
                                 </p>
                                 <div class="py-10 lg:col-span-2 lg:col-start-1  lg:pb-16 lg:pl-8 lg:pt-6">
                                     <!-- Description and details -->
                                     <div>
                                         <h3 class="sr-only">Description</h3>
                                         <div class="space-y-6">
-                                            <p class="text-base font-['kanit'] text-gray-900">{{ product.description }}</p>
+                                            <p class="text-base font-['kanit'] text-gray-900">{{ product.description }}
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="mt-10">
@@ -100,9 +102,9 @@
         </div>
     </div>
 </template>
-  
+
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { StarIcon } from '@heroicons/vue/20/solid'
 import { RadioGroup, RadioGroupLabel, RadioGroupOption } from '@headlessui/vue'
 import { Carousel, Slide } from 'vue3-carousel'
@@ -112,8 +114,20 @@ import 'vue3-carousel/dist/carousel.css'
 const route = useRoute()
 const productStore = useProductStore()
 const cartStore = useCartStore()
-console.log("From product id: ", productStore.products)
-const product = productStore.products.find((item) => item.productId == route.params.productId)
+
+var product = ref(null)
+setTimeout(() => {
+    findProduct();
+}, 500);
+const findProduct = () => {
+    console.log('Product Store Data:', productStore.products)
+    console.log('Route Product ID:', route.params.productId)
+
+    const foundProduct = productStore.products.find((item) => item.productId == route.params.productId)
+    console.log('Found Product:', foundProduct)
+
+    product.value = foundProduct
+}
 const currentSlide = ref(0)
 // const quantity = ref(1)
 // function decrementQuantity() {

@@ -216,6 +216,7 @@ const handleCart = () => {
 const navigation = [
   { name: 'หน้าหลัก', linkTo: "/", current: false },
   { name: 'สินค้าทั้งหมด', linkTo: "/all-products", current: false },
+  { name: 'ฟอรั่ม', linkTo:"/forum", current: false },
 
 ]
 </script>

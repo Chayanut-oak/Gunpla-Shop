@@ -10,6 +10,7 @@ export const useProductStore = defineStore('products', {
     },
     actions: {
         async fetchProducts() {
+            // this.products = products
             const { $api } = useNuxtApp()
             const [gunpla, tool] = await Promise.all([
                 $api("/gunpla", { method: "GET" }),
