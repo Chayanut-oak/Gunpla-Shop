@@ -80,7 +80,7 @@
       <div class="relative col-span-full flex flex-col py-6 pl-8 pr-4 sm:py-12 lg:col-span-4 lg:py-24">
 
         <div>
-          <img src="/Logo.png" alt="" class="absolute inset-0 h-full w-full object-cover" />
+          <img src="../../assets/image/Logo.png" alt="" class="absolute inset-0 h-full w-full object-cover" />
           <div class="absolute inset-0 h-full w-full bg-gradient-to-t from-[#2c52b3] to-[#4370e4] opacity-95"></div>
         </div>
         <div class="relative">

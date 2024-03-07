@@ -158,7 +158,7 @@
                         <td class="font-['kanit'] border px-4 py-2">{{ item.productId }}</td>
                         <td class="font-['kanit'] border px-4 py-2">
                             <img v-if="item.images" :src="item.images[0]" alt="" class="h-16 w-16 object-cover">
-                            <img v-else src="/placeholder.jpg" alt="" class="h-16 w-16 object-cover">
+                            <img v-else src="../../assets/image/placeholder.jpg" alt="" class="h-16 w-16 object-cover">
                         </td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.name }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.description }}</td>
@@ -243,7 +243,7 @@
                         <td class="font-['kanit'] border px-4 py-2">
                             <img v-if="item.image" class="h-full w-full object-cover object-center" :src="item.image"
                                 alt="Product Image">
-                            <img v-else class="h-full w-full object-cover object-center" src="/placeholder.jpg"
+                            <img v-else class="h-full w-full object-cover object-center" src="../../assets/image/placeholder.jpg"
                                 alt="Product Image">
                         </td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.name }}</td>
