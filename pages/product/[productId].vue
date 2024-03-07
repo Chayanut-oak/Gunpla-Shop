@@ -19,7 +19,7 @@
                         </Carousel>
                     </div>
                     <div v-else>
-                        <img src='/placeholder.jpg' alt="product" class="h-full w-full object-cover object-center" />
+                        <img src='@/assets/image/placeholder.jpg' alt="product" class="h-full w-full object-cover object-center" />
                     </div>
 
                     <!-- Product info Gunpla-->

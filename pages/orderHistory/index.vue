@@ -26,7 +26,7 @@
             <li v-for="product in item.cart" :key="product.productId" class="flex py-2">
               <img v-if="item.images" class=" object-cover object-center w-20 h-20 bottom-24 " :src=product.image[0]
                         alt="Product Image">
-                      <img v-else class=" object-cover object-center w-20 h-20 bottom-24 " src="../../assets/image/placeholder.jpg"
+                      <img v-else class=" object-cover object-center w-20 h-20 bottom-24 " src="@/assets/image/placeholder.jpg"
                         alt="Product Image">
               <p class="ml-2 font-['kanit'] text-gray-900">{{ product.type }}</p>
               <p class="ml-2 font-['kanit'] text-gray-900">{{ product.quantity }}</p>
