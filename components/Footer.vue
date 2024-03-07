@@ -3,7 +3,7 @@
         <div class="container mx-auto px-4 align-bottom object-cover">
             <div class="sm:flex sm:flex-wrap sm:-mx-4 md:py-4 ">
                 <div class="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6">
-                    <img src="/mascot.png" class="w-100 h-100 object-cover">
+                    <img src="../assets/image/mascot.png" class="w-100 h-100 object-cover">
                 </div>
                 <div class="px-4 sm:w-1/2 md:w-1/4 xl:w-1/6 mt-8 sm:mt-0">
                     <div class="flex">

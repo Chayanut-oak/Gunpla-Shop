@@ -30,7 +30,7 @@
           <div class="background-gold text-center text-gray-900 font-bold font-['kanit']">{{ item.name }}</div>
           <div class="relative">
             <img v-if="item.images" class="object-cover object-center w-60 h-72 bottom-0" :src="item.images[0]" alt="Product Image">
-            <img v-else class="object-cover object-center w-60 h-72 bottom-0" src="/placeholder.jpg" alt="Product Image">
+            <img v-else class="object-cover object-center w-60 h-72 bottom-0" src="../assets/image/placeholder.jpg" alt="Product Image">
             <div class="absolute flex justify-between left-0 p-1 bg-black bg-opacity-50 text-white bottom-6 w-full">
               <span class="font-bold font-['kanit'] text-lg">{{ item.price }} บาท</span>
             </div>
