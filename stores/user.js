@@ -6,7 +6,8 @@ export const useUserStore = defineStore('user', {
         user: {}
     }),
     getters: {
-        isAuthenticated() { return !!this.token }
+        isAuthenticated() { return !!this.token },
+        isAdmin() { return this.user.role == "admin" }
     },
     persist: {
         storage: persistedState.localStorage,
@@ -23,10 +24,10 @@ export const useUserStore = defineStore('user', {
                     method: 'POST',
                     body: requestBody
                 });
-                console.log(response.token)
                 this.token = response.token;
                 this.user = response.user
-
+                const token = useCookie('token');
+                token.value = response.token; 
             } catch (error) {
                 console.error('Error logging in:', error);
                 throw error;
@@ -53,7 +54,8 @@ export const useUserStore = defineStore('user', {
             }
         },
         async signout() {
-
+            const token = useCookie('token');
+            token.value = null;
             this.token = "",
                 this.user = {}
         }

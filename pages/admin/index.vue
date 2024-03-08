@@ -176,11 +176,11 @@
                             <td class="font-['kanit'] border px-4 py-2">-</td>
                             <td class="font-['kanit'] border px-4 py-2">-</td>
                         </template>
-              
+
                         <td class="font-['kanit'] border px-4 py-2">{{ item.price }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.stock }}</td>
                         <td class="font-['kanit'] border px-4 py-2">
-                            <button @click="setSelectedProduct(item); showModal = true" @close-modal="showModal = false" 
+                            <button @click="setSelectedProduct(item); showModal = true" @close-modal="showModal = false"
                                 class="focus:outline-none">
                                 <PencilSquareIcon class="h-6 w-6" aria-hidden="true" />
                             </button>
@@ -195,9 +195,9 @@
                 </tbody>
             </table>
             <div v-if="showModal == true">
-              <Modal v-show="showModal" @close-modal="showModal = false" :product="selectedProduct"></Modal>  
+                <Modal v-show="showModal" @close-modal="showModal = false" :product="selectedProduct"></Modal>
             </div>
-            
+
             <table v-if="selectedSide == 'orderList'">
                 <thead>
                     <tr class="sticky top-0 bg-white">
@@ -250,8 +250,8 @@
                         <td class="font-['kanit'] border px-4 py-2">
                             <img v-if="item.image" class="h-full w-full object-cover object-center" :src="item.image"
                                 alt="Product Image">
-                            <img v-else class="h-full w-full object-cover object-center" src="@/assets/image/placeholder.jpg"
-                                alt="Product Image">
+                            <img v-else class="h-full w-full object-cover object-center"
+                                src="@/assets/image/placeholder.jpg" alt="Product Image">
                         </td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.name }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.address }}</td>
@@ -265,14 +265,20 @@
                 </tbody>
             </table>
         </div>
-        
+
     </div>
 </template>
 
 <script setup>
+// definePageMeta({
+//     middleware: [
+//         'auth',
+//     ]
+// });
 import { useProductStore } from '@/stores/product';
 import { useUserStore } from '@/stores/user';
 import { TrashIcon, PencilSquareIcon, ListBulletIcon, PlusCircleIcon, UserGroupIcon, TruckIcon } from '@heroicons/vue/24/outline'
+
 const { $api } = useNuxtApp()
 const config = useRuntimeConfig()
 const userStore = useUserStore()
@@ -284,7 +290,7 @@ const showModal = ref(false);
 const selectedProduct = ref(null);
 
 const setSelectedProduct = (product) => {
-  selectedProduct.value = product;
+    selectedProduct.value = product;
 };
 const fetchOrder = async () => {
     if (allOrder.value.length == 0) {

@@ -12,9 +12,12 @@
     <div class="flex flex-col md:flex-row mt-8 p-4 bg-white shadow-md rounded-md ">
       <div class="flex flex-col items-center justify-center md:w-1/4">
         <a href="#">
-          <img
+          <!-- <img v-if="user.image"
             class="border-2 border-gray-500 rounded-full hover:border-teal-500 hover:border-4 transition duration-300 ease-in-out"
-            :src="user.image" alt="Profile Picture" @click="isImageEditing = !isImageEditing, isUploadImage = 0">
+            :src="user.image" alt="Profile Picture" @click="isImageEditing = !isImageEditing, isUploadImage = 0"> -->
+          <img 
+            class="border-2 border-gray-500 rounded-full hover:border-teal-500 hover:border-4 transition duration-300 ease-in-out"
+            src="@/assets/image/mascot.png" alt="Profile Picture" @click="isImageEditing = !isImageEditing, isUploadImage = 0">
         </a>
         <input v-if="isImageEditing" id="images" name="images" type="file" accept="image/*" @change="onFileChange"
           class="block w-full rounded font-kanit border-gray-300 bg-gray-50 py-3 px-4 pr-10 text-base text-gray-500 placeholder-gray-300 shadow-sm outline-none transition focus:ring-2 focus:ring-gray-300 mt-4 md:mt-0" />
@@ -50,7 +53,7 @@ import { PencilSquareIcon } from '@heroicons/vue/24/outline'
 import { useUserStore } from '@/stores/user'
 const userStore = useUserStore()
 const user = ref({
-  image: "/mascot.png",
+  image: "../../assets/image/mascot.png",
   email: "nutthai1771@gmail.com",
   name: "Nut Thaiwattananon",
   address: "Nakniwat 17"
