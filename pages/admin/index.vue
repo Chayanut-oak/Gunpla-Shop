@@ -176,11 +176,15 @@
                             <td class="font-['kanit'] border px-4 py-2">-</td>
                             <td class="font-['kanit'] border px-4 py-2">-</td>
                         </template>
-
+              
                         <td class="font-['kanit'] border px-4 py-2">{{ item.price }}</td>
                         <td class="font-['kanit'] border px-4 py-2">{{ item.stock }}</td>
                         <td class="font-['kanit'] border px-4 py-2">
-                            <PencilSquareIcon class="h-6 w-6" aria-hidden="true" />
+                            <button @click="setSelectedProduct(item); showModal = true" @close-modal="showModal = false" 
+                                class="focus:outline-none">
+                                <PencilSquareIcon class="h-6 w-6" aria-hidden="true" />
+                            </button>
+
                         </td>
                         <td class="font-['kanit'] border px-4 py-2">
                             <a href="#" @click="deleteProduct(item)">
@@ -190,7 +194,10 @@
                     </tr>
                 </tbody>
             </table>
-
+            <div v-if="showModal == true">
+              <Modal v-show="showModal" @close-modal="showModal = false" :product="selectedProduct"></Modal>  
+            </div>
+            
             <table v-if="selectedSide == 'orderList'">
                 <thead>
                     <tr class="sticky top-0 bg-white">
@@ -258,6 +265,7 @@
                 </tbody>
             </table>
         </div>
+        
     </div>
 </template>
 
@@ -272,6 +280,12 @@ const productStore = useProductStore()
 const selectedSide = ref("")
 const allOrder = ref([])
 const allUser = ref([])
+const showModal = ref(false);
+const selectedProduct = ref(null);
+
+const setSelectedProduct = (product) => {
+  selectedProduct.value = product;
+};
 const fetchOrder = async () => {
     if (allOrder.value.length == 0) {
         const res = await $api("/order", {
@@ -293,11 +307,11 @@ const fetchUser = async () => {
 }
 
 const deleteItem = async (item) => {
-        const res = await $api(`/user/deleteUser/${item}`, {
-            method: "DELETE",
-        })
-        console.log(res)
-        allUser.value = allUser.value.filter(user => user.email !== item)
+    const res = await $api(`/user/deleteUser/${item}`, {
+        method: "DELETE",
+    })
+    console.log(res)
+    allUser.value = allUser.value.filter(user => user.email !== item)
 }
 
 const newProduct = ref({
