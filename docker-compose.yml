@@ -13,3 +13,8 @@ services:
     build: .
     ports:
       - "3000:3000"
+  golang:
+    image: golang
+    build: ./Gunpla-Shop_backend
+    ports:
+      - "8080:8080"
