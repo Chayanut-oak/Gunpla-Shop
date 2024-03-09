@@ -47,7 +47,10 @@ export const useUserStore = defineStore('user', {
                     },
                     body: JSON.stringify(requestBody)
                 });
-                this.token = response.token;
+                 this.token = response.token;
+                this.user = response.user
+                const token = useCookie('token');
+                token.value = response.token; 
             } catch (error) {
                 console.error('Error logging in:', error);
                 throw error;

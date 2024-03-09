@@ -11,12 +11,12 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   //   const role = "customer";
   // console.log(userStore.user);
   const { role } = token.value ? jwtDecode(token.value) : "";
-  if (role != "admin" && to.path == "/admin") {
+  if (role != "admin" && to.name == "admin") {
     console.log("1", !userStore.isAdmin);
     console.log("2", to.path == "/admin");
     return abortNavigation();
   }
-  if ((to.path == "/profile" || to.path == "/checkout" || to.path == "/orderHistory") && !token.value) {
+  if ((to.name == "profile" || to.name == "checkout" || to.name == "order-History") && !token.value) {
     return navigateTo("/login");
   }
 });
