@@ -27,15 +27,25 @@ sudo yum update -y
 sudo yum install -y docker
 sudo service docker start
 sudo usermod -a -G docker ec2-user
-## Development Server
+sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
-Start the development server on `http://localhost:3000`:
+
+## Install Git
+sudo yum install git -y
+## Development Server
 
 git clone -b docker --single-branch https://github.com/Chayanut-oak/Gunpla-Shop
 
 cd Gunpla-Shop
 
 git clone -b docker --single-branch https://github.com/Chayanut-oak/Gunpla-Shop_backend
+cd /Gunpla-Shop_backend/cmd/myapps
+echo OMISE_PUBLIC_KEY=pkey_test_5yyex97jk6w30bf2yhe > .env
+echo OMISE_SECRET_KEY=skey_test_5yyex98g6g5mzezann7 >> .env
+echo SECRET_KEY=oak >> .env
+
+
 
 docker-compose up -d --build
 
