@@ -20,23 +20,28 @@ yarn install
 bun install
 ```
 
+
+## Install Docker
+
+sudo yum update -y
+sudo yum install -y docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
 ## Development Server
 
 Start the development server on `http://localhost:3000`:
 
-```bash
-# npm
-npm run dev
+git clone -b docker --single-branch https://github.com/Chayanut-oak/Gunpla-Shop
 
-# pnpm
-pnpm run dev
+cd Gunpla-Shop
 
-# yarn
-yarn dev
+git clone -b docker --single-branch https://github.com/Chayanut-oak/Gunpla-Shop_backend
 
-# bun
-bun run dev
-```
+docker-compose up -d --build
+
+
+
+
 
 ## Production
 
