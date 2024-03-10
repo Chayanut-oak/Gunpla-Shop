@@ -59,7 +59,7 @@
                   </Nuxt-link>
                   </MenuItem>
                   <MenuItem v-slot="{ active }">
-                  <a @click="userStore.signout(); navigateTo('/')" href="#"
+                  <a @click="userStore.signout(); navigateTo('/Login')" href="#"
                     :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
                   </MenuItem>
                 </div>
