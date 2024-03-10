@@ -103,7 +103,7 @@
           </div>
         </div>
         <div class="relative mt-10 text-white">
-          {{ order }}
+          <!-- {{ order }} -->
           <!-- {{ currentYear }} -->
           <!-- <h3 class="mb-5 text-lg font-bold">HERERERERERE {{ address }} {{ selectedShippingMethod }}</h3>
           <p class="text-sm font-semibold">+01 653 235 211 <span class="font-light">(International)</span></p>

@@ -55,8 +55,8 @@ const userStore = useUserStore()
 const user = ref({
   image: "../../assets/image/mascot.png",
   email: "nutthai1771@gmail.com",
-  name: "Nut Thaiwattananon",
-  address: "Nakniwat 17"
+  name: "",
+  address: ""
 })
 const isImageEditing = ref(0)
 const isUploadImage = ref(0)
