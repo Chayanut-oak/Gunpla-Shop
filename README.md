@@ -56,9 +56,7 @@ sudo yum install git -y
 ## Development Server
 
 git clone -b docker --single-branch https://github.com/Chayanut-oak/Gunpla-Shop
-
 cd Gunpla-Shop
-
 git clone -b docker --single-branch https://github.com/Chayanut-oak/Gunpla-Shop_backend
 cd Gunpla-Shop_backend/cmd/myapps
 echo OMISE_PUBLIC_KEY=pkey_test_5yyex97jk6w30bf2yhe > .env
