@@ -41,7 +41,8 @@
                 class="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                 <span class="absolute -inset-1.5" />
                 <span class="sr-only">Open user menu</span>
-                <img v-if="userStore.user.image" class="h-8 w-8 rounded-full" :src="userStore.user.image" alt="user image" />
+                <img v-if="userStore.user.image" class="h-8 w-8 rounded-full" :src="userStore.user.image"
+                  alt="user image" />
                 <img v-else class="h-8 w-8 rounded-full" src="@/assets/image/profileImage.png" alt="placeholder" />
               </MenuButton>
             </div>
@@ -54,20 +55,28 @@
                 <div v-if='userStore.isAuthenticated'>
                   <MenuItem v-slot="{ active }">
                   <Nuxt-link to="/profile">
-                    <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Your
-                      Profile</a>
+                    <a href="#"
+                      :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">โปรไฟล์</a>
+
+                  </Nuxt-link>
+                  </MenuItem>
+                  <MenuItem v-slot="{ active }">
+                  <Nuxt-link to="/order-history">
+                    <a href="#"
+                      :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">ประวัติการสั่งซื้อ</a>
                   </Nuxt-link>
                   </MenuItem>
                   <MenuItem v-slot="{ active }">
                   <a @click="userStore.signout(); navigateTo('/Login')" href="#"
-                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
+                    :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">ออกจากระบบ</a>
                   </MenuItem>
                 </div>
                 <div v-else>
                   <MenuItem v-slot="{ active }">
                   <Nuxt-link to="/login">
-                    <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Log
-                      in</a>
+                    <a href="#"
+                      :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">เข้าสู่ระบบ</a>
+
                   </Nuxt-link>
                   </MenuItem>
                 </div>
@@ -123,8 +132,8 @@
                             <div class="h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200 ">
                               <img v-if="item.images" class="h-full w-full object-cover object-center"
                                 :src="item.images[0]" alt="Product Image">
-                              <img v-else class="h-full w-full object-cover object-center" src="@/assets/image/placeholder.jpg"
-                                alt="Product Image">
+                              <img v-else class="h-full w-full object-cover object-center"
+                                src="@/assets/image/placeholder.jpg" alt="Product Image">
                             </div>
 
                             <div class="ml-4 flex flex-1 flex-col ">
@@ -217,7 +226,7 @@ const handleCart = () => {
 const navigation = [
   { name: 'หน้าหลัก', linkTo: "/", current: false },
   { name: 'สินค้าทั้งหมด', linkTo: "/all-products", current: false },
-  { name: 'ฟอรั่ม', linkTo:"/forum", current: false },
+  { name: 'ฟอรั่ม', linkTo: "/forum", current: false },
 
 ]
 </script>
